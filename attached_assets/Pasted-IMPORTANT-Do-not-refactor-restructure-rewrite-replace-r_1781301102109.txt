@@ -1,0 +1,65 @@
+IMPORTANT:
+
+Do not refactor, restructure, rewrite, replace, rename, or reorganize any existing code.
+
+Do not change component architecture.
+
+Do not modify functionality.
+
+Do not alter copy, layout, colors, spacing, buttons, images, screenshots, navigation, routing, APIs, backend functionality, forms, or section order.
+
+Do not introduce new libraries, dependencies, packages, frameworks, animation systems, or heavy JavaScript.
+
+Implement this using the lightest possible approach within the existing codebase.
+
+Goal:
+Add a premium scroll-reveal effect to the landing page sections, inspired by Cluely’s section entrance behavior, without changing the site structure.
+
+Behavior:
+
+1. Each major section should reveal only when it first enters the viewport.
+
+2. Once a section has appeared, it should stay visible permanently.
+
+* Do not hide it again when scrolling back up.
+* Do not replay the animation repeatedly.
+* Do not flicker.
+
+3. The reveal should be subtle and premium:
+
+* fade in
+* slight upward movement
+* very light blur resolving to sharpness, only if performance-safe
+
+4. Stagger elements within each section slightly:
+
+* section label first
+* headline second
+* supporting text third
+* cards/images/content fourth
+
+5. Keep timing elegant:
+
+* section reveal duration: roughly 600–900ms
+* stagger delay: roughly 80–140ms
+* no slow, annoying delays
+
+6. Do not animate the navbar.
+
+7. Do not animate the footer unless it naturally appears as a final section.
+
+8. Do not apply this to tiny individual elements everywhere.
+   Only apply it to major landing page sections and their main content groups.
+
+9. Respect reduced-motion preferences if already supported.
+   If not already supported, keep the animation extremely lightweight.
+
+10. The result should feel like each section is being introduced as the user scrolls, then remains stable.
+
+Reference feeling:
+Cluely scroll section reveals
+Apple product page polish
+Linear restraint
+
+Final requirement:
+After completing, summarize exactly what files were modified and confirm that no functionality, layout structure, or sections were changed.

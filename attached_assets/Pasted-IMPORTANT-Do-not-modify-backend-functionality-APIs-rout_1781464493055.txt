@@ -1,0 +1,98 @@
+IMPORTANT:
+
+Do not modify backend functionality, APIs, routing, authentication, database logic, forms, navigation, copy outside the hero, sections below the hero, or overall page structure.
+
+Do not introduce new libraries, dependencies, packages, frameworks, or heavy JavaScript.
+
+This change is only for the hero visual on the right side.
+
+Goal:
+Replace the current iPhone mockup with a premium interactive “Gated Stack” made of overlapping floating product cards.
+
+Remove the iPhone mockup from the hero only.
+
+Create 4 floating cards:
+
+1. Events Card
+   Title: Tonight’s Events
+   Content:
+
+* Greek Night
+* Business Networking Mixer
+* Spring Formal
+
+2. Ticket Card
+   Title: Digital Ticket
+   Content:
+
+* Access Granted
+* QR Check-In
+* Entry Confirmed
+
+3. Map Card
+   Title: Campus Map
+   Content:
+
+* 3 Live Events Nearby
+* Venue Pins
+* Directions Ready
+
+4. Organization Card
+   Title: Organization Profile
+   Content:
+
+* Members
+* Upcoming Events
+* Join Community
+
+Design:
+
+* Cards should float close together on the right side of the hero.
+* Cards should slightly overlap like a premium layered deck.
+* Use the existing purple brand palette.
+* Use soft shadows, subtle glow, refined borders, and strong depth.
+* The stack should feel more like Linear/Raycast/Apple than a basic dashboard.
+* Add a subtle radial glow behind the stack.
+* Do not make it look like a phone.
+* Do not make it look like a generic grid.
+
+Interaction:
+
+* On hover, a card should lift slightly.
+* On click, the selected card should smoothly expand forward and display a fuller rundown of that feature.
+* When clicking outside the expanded card, it should smoothly collapse and return every card to its original stacked position.
+* The animation must feel seamless and premium.
+* No bouncing.
+* No spinning.
+* No chaotic movement.
+* No repeated animation loops.
+
+Expanded card content:
+
+Events:
+“Discover what’s happening tonight, find campus events instantly, and see what organizations are hosting.”
+
+Digital Ticket:
+“Buy tickets, store entry passes, and check in with a clean QR-based experience.”
+
+Campus Map:
+“Find events nearby, see where organizations are active, and navigate campus with less friction.”
+
+Organization Profile:
+“Explore organizations, view upcoming events, and connect with communities that match your interests.”
+
+Mobile:
+
+* Stack cards cleanly or simplify into a vertical card arrangement.
+* Do not break responsiveness.
+
+Preserve:
+
+* hero headline
+* hero subheadline
+* hero buttons
+* navbar
+* all sections below the hero
+* existing animation system if possible
+
+After completing, summarize exactly what files were changed and confirm that no non-hero sections or backend functionality were modified.

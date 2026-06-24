@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greek Life App - Interactive Development Roadmap</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .founders {
+            font-size: 1.1rem;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        .edit-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .edit-btn {
+            background: #4299e1;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .edit-btn:hover {
+            background: #3182ce;
+        }
+
+        .edit-mode .editable {
+            cursor: pointer;
+            border: 2px dashed transparent;
+            transition: all 0.3s ease;
+        }
+
+        .edit-mode .editable:hover {
+            border-color: #4299e1;
+            background: rgba(66, 153, 225, 0.1);
+        }
+
+        .roadmap-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+        }
+
+        .section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .phase {
+            background: #f7fafc;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #4299e1;
+        }
+
+        .phase h3 {
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .phase-content {
+            color: #4a5568;
+            font-size: 0.95rem;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .metric-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .metric-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #4299e1;
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            color: #4a5568;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .timeline {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+
+        .timeline h2 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: #4a5568;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f7fafc;
+            border-radius: 12px;
+            border-left: 4px solid #48bb78;
+        }
+
+        .timeline-date {
+            font-weight: 700;
+            color: #2d3748;
+            min-width: 120px;
+            margin-right: 20px;
+        }
+
+        .timeline-content h4 {
+            color: #2d3748;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .timeline-content p {
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+
+        .tech-stack {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+
+        .tech-category {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f7fafc;
+            border-radius: 12px;
+        }
+
+        .tech-category h4 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-tag {
+            background: #4299e1;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .connections {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+
+        .connection-group {
+            margin-bottom: 25px;
+        }
+
+        .connection-group h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .connection-item {
+            background: #f7fafc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 3px solid #48bb78;
+        }
+
+        .revenue-streams {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+
+        .revenue-item {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border-left: 4px solid #ed8936;
+        }
+
+        .revenue-item h4 {
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .revenue-item p {
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .modal h3 {
+            margin-bottom: 20px;
+            color: #2d3748;
+        }
+
+        .modal input, .modal textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .modal textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: #4299e1;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: white;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .roadmap-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .metrics {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="edit-controls">
+        <button class="edit-btn" onclick="toggleEditMode()">✏️ Edit Mode</button>
+        <button class="edit-btn" onclick="saveChanges()">💾 Save Changes</button>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1 class="editable" data-type="title">🚀 Greek Life App</h1>
+            <p class="editable" data-type="subtitle">Interactive Development Roadmap</p>
+            <div class="founders editable" data-type="founders">Founded by <strong>Jonah Ortega</strong> & <strong>Preston Chan</strong></div>
+        </div>
+
+        <div class="metrics">
+            <div class="metric-card editable" data-type="metric">
+                <div class="metric-number">50K</div>
+                <div class="metric-label">Target Users (Year 1)</div>
+            </div>
+            <div class="metric-card editable" data-type="metric">
+                <div class="metric-number">$500K</div>
+                <div class="metric-label">Projected Revenue</div>
+            </div>
+            <div class="metric-card editable" data-type="metric">
+                <div class="metric-number">$25K</div>
+                <div class="metric-label">Platform Revenue (5%)</div>
+            </div>
+            <div class="metric-card editable" data-type="metric">
+                <div class="metric-number">2</div>
+                <div class="metric-label">Target Universities</div>
+            </div>
+            <div class="metric-card editable" data-type="metric">
+                <div class="metric-number">6</div>
+                <div class="metric-label">Development Months</div>
+            </div>
+            <div class="metric-card editable" data-type="metric">
+                <div class="metric-number">4</div>
+                <div class="metric-label">Development Phases</div>
+            </div>
+        </div>
+
+        <div class="roadmap-grid">
+            <div class="section">
+                <h2 class="editable" data-type="section-title">🎯 Development Phases</h2>
+                
+                <div class="phase editable" data-type="phase">
+                    <h3>Phase 1: Foundation (Weeks 1-4)</h3>
+                    <div class="phase-content">
+                        • Core app structure and navigation<br>
+                        • User authentication and profiles<br>
+                        • Basic event creation and management<br>
+                        • Payment system integration (Stripe/PayPal)<br>
+                        • Data integration for Rutgers & USC<br>
+                        • QR code generation for tickets<br>
+                        • Basic user interface and UX design
+                    </div>
+                </div>
+
+                <div class="phase editable" data-type="phase">
+                    <h3>Phase 2: Enhancement (Weeks 5-12)</h3>
+                    <div class="phase-content">
+                        • QR code scanning and validation<br>
+                        • Google Maps integration<br>
+                        • Real-time messaging system<br>
+                        • Role-based permissions<br>
+                        • Beta testing at Rutgers & USC<br>
+                        • Event discovery and search<br>
+                        • Social networking features
+                    </div>
+                </div>
+
+                <div class="phase editable" data-type="phase">
+                    <h3>Phase 3: Advanced (Months 3-4)</h3>
+                    <div class="phase-content">
+                        • AI-powered recommendations<br>
+                        • Advanced analytics dashboard<br>
+                        • Content moderation system<br>
+                        • Performance optimization<br>
+                        • Ambassador program launch<br>
+                        • Advanced payment features<br>
+                        • Multi-language support
+                    </div>
+                </div>
+
+                <div class="phase editable" data-type="phase">
+                    <h3>Phase 4: Scale (Months 5-6)</h3>
+                    <div class="phase-content">
+                        • Multi-university expansion<br>
+                        • Advanced revenue streams<br>
+                        • Enterprise features<br>
+                        • Market leadership position<br>
+                        • Series A preparation<br>
+                        • International expansion<br>
+                        • Advanced security features
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="editable" data-type="section-title">🎓 Target Universities</h2>
+                
+                <div class="phase editable" data-type="university-group">
+                    <h3>Primary Launch (Phase 1-2)</h3>
+                    <div class="phase-content">
+                        • <strong>Rutgers University</strong> - East Coast hub<br>
+                        • <strong>USC (University of Southern California)</strong> - West Coast hub<br>
+                        • Focus on Greek life organizations<br>
+                        • Campus ambassador recruitment<br>
+                        • Local event partnerships
+                    </div>
+                </div>
+
+                <div class="phase editable" data-type="university-group">
+                    <h3>Secondary Expansion (Phase 3-4)</h3>
+                    <div class="phase-content">
+                        • <strong>Montclair State University</strong><br>
+                        • <strong>Syracuse University</strong><br>
+                        • <strong>University of Florida</strong><br>
+                        • <strong>Rowan University</strong><br>
+                        • <strong>Tulane University</strong><br>
+                        • <strong>UC Berkeley</strong><br>
+                        • <strong>Stanford University</strong>
+                    </div>
+                </div>
+
+                <div class="phase editable" data-type="university-group">
+                    <h3>Key Features by University</h3>
+                    <div class="phase-content">
+                        • Greek life organization management<br>
+                        • Event ticketing and QR codes<br>
+                        • Campus map integration<br>
+                        • Social networking features<br>
+                        • Revenue sharing partnerships<br>
+                        • Student organization tools<br>
+                        • Campus safety features
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline">
+            <h2 class="editable" data-type="section-title">📅 Development Timeline</h2>
+            
+            <div class="timeline-item editable" data-type="timeline">
+                <div class="timeline-date">Week 1-2</div>
+                <div class="timeline-content">
+                    <h4>Core Foundation</h4>
+                    <p>Essential app structure, user authentication, and basic event platform functionality. Focus on MVP event platform with core features.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item editable" data-type="timeline">
+                <div class="timeline-date">Week 3-4</div>
+                <div class="timeline-content">
+                    <h4>Data & Payment Integration</h4>
+                    <p>Critical infrastructure for Rutgers & USC data, Stripe/PayPal integration, and ticketing system. Begin university partnerships.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item editable" data-type="timeline">
+                <div class="timeline-date">Week 5-6</div>
+                <div class="timeline-content">
+                    <h4>QR & Testing</h4>
+                    <p>QR code generation for tickets, validation system, and internal testing with sample events. Security implementation.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item editable" data-type="timeline">
+                <div class="timeline-date">Week 7-8</div>
+                <div class="timeline-content">
+                    <h4>Campus Launch</h4>
+                    <p>Live app deployment at both universities, real event creation, and initial user onboarding. Ambassador program initiation.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item editable" data-type="timeline">
+                <div class="timeline-date">Week 9-10</div>
+                <div class="timeline-content">
+                    <h4>Ambassador Program</h4>
+                    <p>Direct approach to Greek organizations, ambassador recruitment, and incentivized adoption. Revenue sharing implementation.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item editable" data-type="timeline">
+                <div class="timeline-date">Week 11-12</div>
+                <div class="timeline-content">
+                    <h4>Enhanced Features</h4>
+                    <p>Google Maps integration, messaging system, and user experience improvements based on feedback. Performance optimization.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item editable" data-type="timeline">
+                <div class="timeline-date">Month 3-4</div>
+                <div class="timeline-content">
+                    <h4>Scale & Optimize</h4>
+                    <p>Advanced analytics, role-based permissions, content moderation, and preparation for additional universities. AI integration begins.</p>
+                </div>
+            </div>
+
+            <div class="timeline-item editable" data-type="timeline">
+                <div class="timeline-date">Month 4-5</div>
+                <div class="timeline-content">
+                    <h4>National Expansion</h4>
+                    <p>Launch at Montclair State, Syracuse, University of Florida, Rowan, and Tulane with proven ambassador program. Series A preparation.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tech-stack">
+            <h2 class="editable" data-type="section-title">🛠️ Technology Implementation by Phase</h2>
+            
+            <div class="tech-category editable" data-type="tech-category">
+                <h4>Phase 1: Foundation Technologies (Weeks 1-4)</h4>
+                <div class="tech-tags">
+                    <span class="tech-tag">Swift (iOS)</span>
+                    <span class="tech-tag">SwiftUI</span>
+                    <span class="tech-tag">Kotlin (Android)</span>
+                    <span class="tech-tag">Jetpack Compose</span>
+                    <span class="tech-tag">Firebase</span>
+                    <span class="tech-tag">Stripe API</span>
+                    <span class="tech-tag">PayPal API</span>
+                    <span class="tech-tag">QR Code Generation</span>
+                    <span class="tech-tag">User Authentication</span>
+                    <span class="tech-tag">Cloud Storage</span>
+                </div>
+            </div>
+
+            <div class="tech-category editable" data-type="tech-category">
+                <h4>Phase 2: Enhancement Technologies (Weeks 5-12)</h4>
+                <div class="tech-tags">
+                    <span class="tech-tag">Google Maps SDK</span>
+                    <span class="tech-tag">iOS MapKit</span>
+                    <span class="tech-tag">Firebase Cloud Messaging</span>
+                    <span class="tech-tag">Apple Push Notifications</span>
+                    <span class="tech-tag">Real-time Database</span>
+                    <span class="tech-tag">Mobile Location Services</span>
+                    <span class="tech-tag">QR Code Scanning</span>
+                    <span class="tech-tag">WebSocket</span>
+                    <span class="tech-tag">Social Login</span>
+                    <span class="tech-tag">Image Processing</span>
+                </div>
+            </div>
+
+            <div class="tech-category editable" data-type="tech-category">
+                <h4>Phase 3: Advanced Technologies (Months 3-4)</h4>
+                <div class="tech-tags">
+                    <span class="tech-tag">Machine Learning APIs</span>
+                    <span class="tech-tag">Natural Language Processing</span>
+                    <span class="tech-tag">Recommendation Engine</span>
+                    <span class="tech-tag">Predictive Analytics</span>
+                    <span class="tech-tag">AI Content Moderation</span>
+                    <span class="tech-tag">Smart Notifications</span>
+                    <span class="tech-tag">Behavioral Analysis</span>
+                    <span class="tech-tag">Personalization Engine</span>
+                    <span class="tech-tag">Advanced Security</span>
+                    <span class="tech-tag">Performance Monitoring</span>
+                </div>
+            </div>
+
+            <div class="tech-category editable" data-type="tech-category">
+                <h4>Phase 4: Scale Technologies (Months 5-6)</h4>
+                <div class="tech-tags">
+                    <span class="tech-tag">Multi-Region Deployment</span>
+                    <span class="tech-tag">Load Balancing</span>
+                    <span class="tech-tag">Advanced Analytics</span>
+                    <span class="tech-tag">Business Intelligence</span>
+                    <span class="tech-tag">Enterprise Security</span>
+                    <span class="tech-tag">API Management</span>
+                    <span class="tech-tag">Performance Monitoring</span>
+                    <span class="tech-tag">Scalable Infrastructure</span>
+                    <span class="tech-tag">Microservices</span>
+                    <span class="tech-tag">Container Orchestration</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="connections">
+            <h2 class="editable" data-type="section-title">🔗 Cross-Phase Dependencies</h2>
+            
+            <div class="connection-group editable" data-type="connection-group">
+                <h3>Payment System → QR Code Generation</h3>
+                <div class="connection-item">Secure payment processing enables unique QR code generation for each ticket purchase</div>
+                <div class="connection-item">Payment validation ensures QR code authenticity and prevents fraud</div>
+            </div>
+
+            <div class="connection-group editable" data-type="connection-group">
+                <h3>Data Integration → Maps Locations</h3>
+                <div class="connection-item">University data provides campus locations for event mapping</div>
+                <div class="connection-item">Organization data enables location-based event discovery</div>
+            </div>
+
+            <div class="connection-group editable" data-type="connection-group">
+                <h3>Messaging → Role Management</h3>
+                <div class="connection-item">Role-based permissions control messaging access between users</div>
+                <div class="connection-item">Organization leaders can manage group communications</div>
+            </div>
+
+            <div class="connection-group editable" data-type="connection-group">
+                <h3>Analytics → Revenue Optimization</h3>
+                <div class="connection-item">User behavior data drives revenue optimization strategies</div>
+                <div class="connection-item">Event success metrics inform pricing and promotion decisions</div>
+            </div>
+
+            <div class="connection-group editable" data-type="connection-group">
+                <h3>Infrastructure → Market Expansion</h3>
+                <div class="connection-item">Scalable infrastructure enables multi-university deployment</div>
+                <div class="connection-item">Performance optimization supports increased user load</div>
+            </div>
+        </div>
+
+        <div class="revenue-streams">
+            <h2 class="editable" data-type="section-title">💰 Revenue Streams</h2>
+            
+            <div class="revenue-item editable" data-type="revenue-item">
+                <h4>Event Ticketing Commission</h4>
+                <p>5% commission on all ticket sales through the platform. Primary revenue source with projected $25K in Year 1.</p>
+            </div>
+
+            <div class="revenue-item editable" data-type="revenue-item">
+                <h4>Organization Partnerships</h4>
+                <p>Revenue sharing with Greek organizations and clubs for premium features and promotional services.</p>
+            </div>
+
+            <div class="revenue-item editable" data-type="revenue-item">
+                <h4>Premium Features</h4>
+                <p>Advanced analytics, custom branding, and priority support for organization leaders and event organizers.</p>
+            </div>
+
+            <div class="revenue-item editable" data-type="revenue-item">
+                <h4>Data Insights</h4>
+                <p>Anonymized analytics and market insights for universities and event organizers (GDPR compliant).</p>
+            </div>
+
+            <div class="revenue-item editable" data-type="revenue-item">
+                <h4>Advertising Platform</h4>
+                <p>Targeted advertising for local businesses, restaurants, and services relevant to university students.</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2025 Greek Life App - Interactive Development Roadmap</p>
+            <p>Building the future of campus social life through connected technology and strategic development.</p>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <h3 id="modalTitle">Edit Content</h3>
+            <input type="text" id="editTitle" placeholder="Title">
+            <textarea id="editContent" placeholder="Content"></textarea>
+            <div class="modal-buttons">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveEdit()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let editMode = false;
+        let currentEditingElement = null;
+
+        function toggleEditMode() {
+            editMode = !editMode;
+            document.body.classList.toggle('edit-mode', editMode);
+            const btn = document.querySelector('.edit-btn');
+            btn.textContent = editMode ? '👁️ View Mode' : '✏️ Edit Mode';
+        }
+
+        function saveChanges() {
+            // Save to localStorage for now
+            const roadmapData = {
+                title: document.querySelector('[data-type="title"]').textContent,
+                subtitle: document.querySelector('[data-type="subtitle"]').textContent,
+                founders: document.querySelector('[data-type="founders"]').innerHTML,
+                timestamp: new Date().toISOString()
+            };
+            localStorage.setItem('roadmapData', JSON.stringify(roadmapData));
+            alert('Changes saved to browser storage!');
+        }
+
+        function openEditModal(element, type) {
+            currentEditingElement = element;
+            const modal = document.getElementById('editModal');
+            const titleInput = document.getElementById('editTitle');
+            const contentInput = document.getElementById('editContent');
+
+            if (type === 'title' || type === 'subtitle') {
+                titleInput.value = element.textContent;
+                contentInput.style.display = 'none';
+                titleInput.style.display = 'block';
+            } else {
+                titleInput.style.display = 'none';
+                contentInput.style.display = 'block';
+                contentInput.value = element.innerHTML;
+            }
+
+            document.getElementById('modalTitle').textContent = `Edit ${type}`;
+            modal.style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('editModal').style.display = 'none';
+            currentEditingElement = null;
+        }
+
+        function saveEdit() {
+            if (!currentEditingElement) return;
+
+            const titleInput = document.getElementById('editTitle');
+            const contentInput = document.getElementById('editContent');
+
+            if (titleInput.style.display !== 'none') {
+                currentEditingElement.textContent = titleInput.value;
+            } else {
+                currentEditingElement.innerHTML = contentInput.value;
+            }
+
+            closeModal();
+        }
+
+        // Add click handlers to editable elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const editableElements = document.querySelectorAll('.editable');
+            editableElements.forEach(element => {
+                element.addEventListener('click', function(e) {
+                    if (!editMode) return;
+                    e.preventDefault();
+                    const type = element.getAttribute('data-type');
+                    openEditModal(element, type);
+                });
+            });
+
+            // Close modal when clicking outside
+            window.addEventListener('click', function(e) {
+                const modal = document.getElementById('editModal');
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

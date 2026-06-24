@@ -1,0 +1,81 @@
+{
+  "name": "greek-life-redesign",
+  "version": "2.0.0",
+  "description": "Greek Life App Redesign - A modern redesign of the Greek life platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "craco start",
+    "start:local": "concurrently -k -n api,web -c blue,magenta \"npm run server\" \"npm start\"",
+    "start:replit": "HOST=0.0.0.0 PORT=${PORT:-3000} craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "react-scripts eject",
+    "server": "node server.js",
+    "dev": "nodemon server.js",
+    "build:css": "sass src/styles/main.scss public/css/style.css",
+    "watch:css": "sass --watch src/styles/main.scss public/css/style.css"
+  },
+  "dependencies": {
+    "@radix-ui/react-label": "^2.1.7",
+    "@radix-ui/react-select": "^2.2.6",
+    "@radix-ui/react-slot": "^1.2.3",
+    "@supabase/supabase-js": "^2.75.0",
+    "@tailwindcss/forms": "^0.5.10",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "cors": "^2.8.5",
+    "date-fns": "^4.1.0",
+    "date-fns-tz": "^3.2.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^6.10.0",
+    "express-validator": "^7.0.1",
+    "framer-motion": "^12.23.22",
+    "helmet": "^7.0.0",
+    "html5-qrcode": "^2.3.8",
+    "lucide-react": "^0.544.0",
+    "mapbox-gl": "^3.15.0",
+    "qr-scanner": "^1.4.2",
+    "qrcode.react": "^4.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-map-gl": "^7.1.7",
+    "react-scripts": "5.0.1",
+    "socket.io": "^4.7.2",
+    "stripe": "^22.0.1",
+    "tailwind-merge": "^3.3.1",
+    "web-vitals": "^5.0.3"
+  },
+  "devDependencies": {
+    "@craco/craco": "^7.1.0",
+    "@types/react": "^19.2.0",
+    "autoprefixer": "^10.4.21",
+    "concurrently": "^9.2.1",
+    "nodemon": "^3.0.1",
+    "postcss": "^8.5.6",
+    "sass": "^1.64.1",
+    "tailwindcss": "^3.4.18"
+  },
+  "keywords": [
+    "react",
+    "template",
+    "app",
+    "prototype",
+    "mockup"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "proxy": "http://localhost:3001",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

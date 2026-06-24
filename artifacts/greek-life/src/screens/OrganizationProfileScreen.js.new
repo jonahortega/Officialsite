@@ -1,0 +1,240 @@
+import React, { useState } from 'react';
+import './OrganizationProfileScreen.css';
+
+const OrganizationProfileScreen = ({ organization, user, onNavigate, onStartConversation }) => {
+  // Early return if organization is not provided
+  if (!organization) {
+    return (
+      <div className="organization-profile-screen">
+        <div className="error-message">
+          <h2>Organization not found</h2>
+          <button onClick={() => onNavigate('events')}>← Back to Events</button>
+        </div>
+      </div>
+    );
+  }
+
+  const [activeTab, setActiveTab] = useState('events');
+  const [rsvpStatus, setRsvpStatus] = useState({});
+  const [showRequestPopup, setShowRequestPopup] = useState(false);
+  const [requestMessage, setRequestMessage] = useState('');
+  const [showMembersPopup, setShowMembersPopup] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [showEventModal, setShowEventModal] = useState(false);
+  const [selectedPost, setSelectedPost] = useState(null);
+  const [showPostModal, setShowPostModal] = useState(false);
+  const [showNewEventModal, setShowNewEventModal] = useState(false);
+  const [showNewPostModal, setShowNewPostModal] = useState(false);
+  const [showCreateOptions, setShowCreateOptions] = useState(false);
+  const [likedPosts, setLikedPosts] = useState(new Set());
+  const [showCommentModal, setShowCommentModal] = useState(false);
+  const [selectedPostForComments, setSelectedPostForComments] = useState(null);
+  const [newEvent, setNewEvent] = useState({
+    title: '',
+    date: '',
+    time: '',
+    location: '',
+    description: '',
+    maxAttendees: '',
+    price: '',
+    image: null,
+    category: 'Event'
+  });
+  const [newPost, setNewPost] = useState({
+    caption: '',
+    image: null,
+    attachedEvent: null
+  });
+
+  // Organization-specific events based on type and category
+  const getOrganizationEvents = (org) => {
+    const baseEvents = {
+      'Fraternity': [
+        // Past Events
+        {
+          id: 'past-1',
+          title: "Fall Rush Week",
+          date: "2023-09-15",
+          time: "6:00 PM",
+          location: "Greek Row",
+          description: "Our annual Fall Rush Week event where potential new members got to meet the brothers and learn about our fraternity.",
+          attendees: 75,
+          maxAttendees: 100,
+          image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=400&h=200&fit=crop"
+        },
+        {
+          id: 'past-2',
+          title: "Holiday Charity Drive",
+          date: "2023-12-10",
+          time: "2:00 PM",
+          location: "Student Union",
+          description: "Annual holiday charity drive where we collected donations for local families in need.",
+          attendees: 120,
+          maxAttendees: 150,
+          image: "https://images.unsplash.com/photo-1482517967863-00e15c9b44be?w=400&h=200&fit=crop"
+        },
+        {
+          id: 1,
+          title: "Brotherhood Retreat",
+          date: "2024-03-25",
+          time: "7:00 PM",
+          location: "Campus Center Ballroom",
+          description: "Annual brotherhood bonding event with team building activities and social networking.",
+          attendees: 45,
+          maxAttendees: 60,
+          image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=200&fit=crop"
+        }
+      ]
+    };
+
+    return baseEvents[org.type] || [];
+  };
+
+  const organizationEvents = getOrganizationEvents(organization);
+
+  return (
+    <div className="organization-profile-screen">
+      <div className="profile-container">
+        <div className="profile-header">
+          <div className="profile-image-container">
+            <img 
+              src={organization.image || 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=400&fit=crop'} 
+              alt={organization.name} 
+              className="profile-image" 
+            />
+          </div>
+          
+          {/* Profile Info Section */}
+          <div className="profile-info-section">
+            <div className="profile-details">
+              <div className="profile-name-section">
+                <h1 className="profile-name">{organization.name}</h1>
+                <span className="profile-username">@{organization.name.toLowerCase().replace(/\s+/g, '').replace('club', '')}</span>
+              </div>
+              
+              <div className="profile-stats">
+                <div className="stat-item clickable" onClick={handleMembersClick}>
+                  <span className="stat-number">{organization.members}</span>
+                  <span className="stat-label">Members</span>
+                </div>
+                <div className="stat-item">
+                  <span className="stat-number">{organizationEvents.length}</span>
+                  <span className="stat-label">Events</span>
+                </div>
+                <div className="stat-item">
+                  <span className="stat-number">{organization.type.replace(' Club', '')}</span>
+                  <span className="stat-label">Club</span>
+                </div>
+              </div>
+              
+              <div className="profile-bio-section">
+                <p className="profile-bio">{organization.description}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Tab Navigation */}
+        <div className="profile-tabs">
+          <button 
+            className={`tab-button ${activeTab === 'events' ? 'active' : ''}`}
+            onClick={() => setActiveTab('events')}
+          >
+            📅 Events
+          </button>
+
+          <button 
+            className={`tab-button ${activeTab === 'posts' ? 'active' : ''}`}
+            onClick={() => setActiveTab('posts')}
+          >
+            📝 Posts
+          </button>
+        </div>
+
+        {/* Tab Content */}
+        <div className="profile-content">
+          {activeTab === 'events' && (
+            <div className="events-section">
+              <div className="events-grid">
+                {organizationEvents.map(event => (
+                  <div key={event.id} className="event-card" onClick={() => handleEventClick(event)}>
+                    <div className="event-image-container">
+                      <img src={event.image} alt={event.title} className="event-image" />
+                    </div>
+                    
+                    <div className="event-content">
+                      <h3 className="event-title">{event.title}</h3>
+                      
+                      <p className="event-description">{event.description}</p>
+                      
+                      <div className="event-info">
+                        <span>{formatDate(event.date)}, {event.time}</span>
+                        <span>{event.location}</span>
+                        <span>{event.attendees}/{event.maxAttendees || 'Unlimited'} attendees</span>
+                      </div>
+                      
+                      <div className="event-actions">
+                        <button 
+                          className="rsvp-btn"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleRSVP(event.id);
+                          }}
+                        >
+                          RSVP
+                        </button>
+                        <button className="details-btn" onClick={(e) => {
+                          e.stopPropagation();
+                          handleEventClick(event);
+                        }}>
+                          Details
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'posts' && (
+            <div className="posts-section">
+              <div className="posts-grid">
+                {organizationPosts.map(post => (
+                  <div key={post.id} className="post-item" onClick={() => handlePostClick(post)}>
+                    <img 
+                      src={post.image || 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&h=400&fit=crop'} 
+                      alt={post.content} 
+                      className="post-image" 
+                    />
+                    <div className="post-overlay">
+                      <div className="post-actions">
+                        <button 
+                          className={`like-btn ${likedPosts.has(post.id) ? 'liked' : ''}`}
+                          onClick={(e) => handleLikePost(post.id, e)}
+                        >
+                          {likedPosts.has(post.id) ? '❤️' : '🤍'} {post.likes}
+                        </button>
+                        <button 
+                          className="comment-btn"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleCommentClick(post);
+                          }}
+                        >
+                          💬 {(post.comments || []).length}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default OrganizationProfileScreen;

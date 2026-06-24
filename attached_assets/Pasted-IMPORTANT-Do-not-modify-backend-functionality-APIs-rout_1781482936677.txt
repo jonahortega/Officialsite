@@ -1,0 +1,43 @@
+IMPORTANT:
+Do not modify backend functionality, APIs, routing, authentication, database logic, navigation, forms, buttons, copy, sections below the hero, or overall page structure.
+Do not refactor, restructure, rename, reorganize, or rewrite the codebase.
+Do not introduce new libraries, dependencies, packages, frameworks, animation systems, or heavy JavaScript.
+This is a hero visual animation only.
+Goal:
+Create a premium iPhone opening sequence inspired by Cluely’s product reveal behavior, but adapted for Gated.
+Concept:
+The iPhone should briefly show a clean generic home screen with the Gated app icon as the main focus. Then the Gated app icon opens smoothly into the existing app preview that is already inside the phone.
+Sequence:
+On hero load, the phone appears as it currently does.
+Inside the phone screen only, show a minimal generic iPhone-style home screen.
+Use the Gated app icon as the clear focal point.
+Do not use real third-party app icons.
+If other icons are needed, use simple generic rounded-square placeholders only.
+Keep this screen extremely clean and minimal.
+The Gated app icon should smoothly open into the app.
+Use a premium zoom/fade transition.
+The app preview should resolve into the current existing Gated app screen/carousel.
+The transition should feel seamless, not like a hard cut.
+No bouncing.
+No spinning.
+No flashy motion.
+Preserve the current phone mockup, phone position, phone size, phone glow, hero text, buttons, and all existing hero layout.
+Do not alter the current phone slide-in animation.
+This new animation should happen inside the phone screen after or during the existing phone reveal, without disrupting it.
+After the app opens, the phone should behave exactly as it currently does.
+Timing:
+Home screen moment: brief, roughly 0.5–0.8 seconds.
+App open transition: roughly 0.6–0.9 seconds.
+Total added sequence should feel premium, not slow.
+Restrictions:
+Do not animate anything outside the phone screen.
+Do not change the hero headline animation.
+Do not change the subheadline animation.
+Do not change CTA animations.
+Do not touch sections below the hero.
+Do not add particles, floating cards, portals, or decorative objects.
+Reference feeling:
+Cluely product reveal
+Apple iOS app-open transition
+Premium product demo
+After completing, summarize exactly what files were changed and confirm that only the hero phone visual was affected.

@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Greek Life App"
+version = "1.0.0"
+id = "artifacts/greek-life"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25182
+
+[services.development]
+run = "pnpm --filter @workspace/greek-life run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/greek-life", "run", "build" ]
+publicDir = "artifacts/greek-life/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25182"
+BASE_PATH = "/"

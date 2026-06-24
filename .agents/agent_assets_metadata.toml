@@ -1,0 +1,26 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "3vaOS77BIsA0LCIpTlrlu"
+uri = "file://artifacts/marketing-site/public/hero-app.png"
+type = "image"
+title = "App on nightlife background"
+
+[[generated]]
+id = "t9_TWcDLSfu0NgWaaYun_"
+uri = "file://artifacts/marketing-site/public/qr-ticket.png"
+type = "image"
+title = "QR code ticket on phone"
+
+[[generated]]
+id = "dvjk-fhjI99YWll__89Zt"
+uri = "file://artifacts/marketing-site/public/dashboard-ui.png"
+type = "image"
+title = "Dashboard interface on laptop"
+
+[[generated]]
+id = "cWJMlEN6rM2bFGlJ2HfSC"
+uri = "file://artifacts/marketing-site/public/campus-map.png"
+type = "image"
+title = "Campus map neon style"
