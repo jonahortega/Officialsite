@@ -1,0 +1,75 @@
+IMPORTANT:
+
+Do not modify backend functionality, APIs, routing, navigation, forms, buttons, hero copy, sections below the hero, or overall page structure.
+
+Do not refactor, restructure, rename, reorganize, or rewrite the codebase.
+
+Do not introduce new libraries, dependencies, frameworks, animation systems, or heavy JavaScript.
+
+This is ONLY a phone-screen animation cleanup.
+
+Goal:
+Make the iPhone opening animation cleaner, more consistent, and less awkward.
+
+Current issues to fix:
+
+* The pre-animation phone screen looks inconsistent with the post-animation app screen.
+* The time changes from 9:41 to 2:20.
+* The status icons do not line up between screens.
+* The Gated app icon appears too small.
+* The app launch animation feels messy and cheap.
+
+Make these changes:
+
+1. Use the provided phone background/wallpaper for the pre-animation home screen.
+
+* Replace the current dark/empty phone wallpaper.
+* The background should fill the iPhone screen cleanly.
+* Do not stretch, distort, or crop awkwardly.
+
+2. Set the pre-animation home screen time to exactly:
+   2:20
+
+3. Make the status bar consistent.
+
+* The time, Wi-Fi, signal, and battery icons on the pre-animation screen must line up exactly with the post-animation app screen.
+* Use the same size, placement, and visual weight as the post-animation app screen.
+* No jumping or resizing during transition.
+
+4. Make the Gated app icon larger.
+
+* The icon should feel like the main focus of the home screen.
+* It should not look tiny or weak.
+* Keep it clean and centered enough to feel intentional, while still reading like an app icon.
+
+5. Simplify the app opening animation.
+
+* Remove any messy or overly complex transition.
+* The animation should feel like a clean iOS app launch.
+* The icon should smoothly scale up and fade into the existing app screen.
+* No bouncing.
+* No spinning.
+* No awkward sideways movement.
+* No dramatic zoom.
+* No hard jump cut.
+
+6. Keep the animation slower and smoother.
+
+* The icon should hold briefly before opening.
+* Then smoothly transition into the app.
+* The full app-opening sequence should feel premium and controlled.
+
+7. After the app opens, preserve the existing app screen exactly.
+
+Do not change:
+
+* final phone size
+* final phone position
+* phone frame
+* hero headline
+* hero subheadline
+* CTA buttons
+* navbar
+* any section below the hero
+
+The goal is consistency, cleanliness, and polish. The animation should feel simple, native, and premium.

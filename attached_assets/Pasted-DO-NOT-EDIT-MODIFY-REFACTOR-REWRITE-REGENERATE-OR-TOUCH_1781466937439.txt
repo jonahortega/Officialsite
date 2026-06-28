@@ -1,0 +1,57 @@
+DO NOT EDIT, MODIFY, REFACTOR, REWRITE, REGENERATE, OR TOUCH A SINGLE LINE OF CODE.
+
+This is a VISUAL-ONLY task. You may only adjust existing styling, positioning, sizing, shadows, glows, and animations through the visual editor. The structure, components, functionality, logic, layout system, responsiveness, content, and codebase must remain completely untouched.
+
+Do NOT create new components.
+Do NOT delete components.
+Do NOT replace components.
+Do NOT modify existing code.
+Do NOT regenerate sections.
+Do NOT alter any other area of the site.
+
+Focus ONLY on the existing hero iPhone.
+
+Changes:
+
+1. Move the phone approximately 5–8% closer toward the center of the hero section so the relationship between the headline and device feels more intentional.
+
+2. Increase the phone size slightly (approximately 5–10%) while maintaining all current proportions and responsiveness.
+
+3. Replace the current generic glow with a premium spotlight effect:
+
+   * concentrated directly behind the device
+   * brightest near the phone
+   * smooth fade outward
+   * luxury purple/violet gradients
+   * premium technology-product presentation
+   * no harsh edges
+   * no neon effect
+
+4. Add a subtle hover interaction:
+
+   * phone rises a few pixels
+   * spotlight intensity increases slightly
+   * animation duration 400–600ms
+   * smooth premium easing
+   * no bounce
+   * no floating loop
+   * no exaggerated movement
+
+5. Phone remains completely still when not hovered.
+
+Important Restrictions:
+
+* Do NOT replace the phone.
+* Do NOT add floating cards.
+* Do NOT add particles.
+* Do NOT add orbiting objects.
+* Do NOT add new UI.
+* Do NOT modify hero text.
+* Do NOT modify buttons.
+* Do NOT modify navigation.
+* Do NOT modify spacing outside the phone area.
+* Do NOT modify any section below the hero.
+* Do NOT touch any other section of the website.
+* Do NOT touch a single line of code.
+
+The goal is to make the existing iPhone feel premium, intentional, and worthy of attention without changing the website's structure or functionality in any way.

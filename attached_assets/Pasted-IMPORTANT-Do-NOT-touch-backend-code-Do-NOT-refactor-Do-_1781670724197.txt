@@ -1,0 +1,161 @@
+IMPORTANT:
+
+Do NOT touch backend code.
+
+Do NOT refactor.
+
+Do NOT reorganize files.
+
+Do NOT rewrite components.
+
+Do NOT change functionality.
+
+Do NOT add libraries.
+
+Do NOT modify routing, APIs, buttons, links, forms, or application logic.
+
+Do NOT alter any section below the hero.
+
+This is a hero experience redesign ONLY.
+
+The goal is to dramatically improve visual hierarchy and perceived product value.
+
+Right now the hero feels like several competing elements fighting for attention. I want a clear story:
+
+1. Message
+2. Product reveal
+3. Product demonstration
+
+Everything should guide the user's eyes through that sequence.
+
+HERO CHANGES:
+
+1. Raise the entire hero copy block significantly.
+
+Move:
+
+* "Unlock Your Campus."
+* supporting copy
+* CTA buttons
+
+higher on the page.
+
+The headline should visually align closer to the upper third of the phone rather than sitting low on the page.
+
+The page should immediately communicate the message before the product.
+
+2. Reduce visual dominance of the phone.
+
+Reduce the phone size approximately 10–15%.
+
+Do not make it small.
+
+Do not change the final layout structure.
+
+The goal is simply to stop the phone from overpowering the headline.
+
+3. Redesign the hero animation sequence.
+
+Current experience:
+Phone appears too quickly and feels disconnected from the messaging.
+
+Desired experience:
+
+Step 1:
+Headline appears first.
+
+Step 2:
+Brief pause allowing the user to process the headline.
+
+Step 3:
+Phone rises upward from below rather than sliding in from the side.
+
+Step 4:
+Phone settles naturally.
+
+Step 5:
+Gated app icon opens.
+
+Step 6:
+App experience begins.
+
+The animation should feel deliberate, premium, and cinematic.
+
+Nothing should feel like it spawns into existence.
+
+Use smooth easing and premium motion principles.
+
+4. Improve the iPhone home screen realism.
+
+Use the uploaded wallpaper.
+
+Apply subtle blur and depth so it feels like a real iPhone screen rather than a sharp image pasted into a device frame.
+
+Match the visual softness of a real iPhone home screen.
+
+5. Match real iPhone app placement.
+
+The Gated app icon should sit in the upper left area exactly like a real iPhone home screen.
+
+The "Gated" label should sit directly beneath the icon with realistic Apple spacing.
+
+Reduce the gap between icon and label.
+
+6. Improve the opening animation.
+
+When the app launches:
+
+Do NOT instantly expand.
+
+Do NOT abruptly zoom.
+
+Instead:
+
+* icon gently enlarges
+* icon gains focus
+* icon expands into the application
+* transition feels similar to a premium native iOS app launch
+
+Smooth and elegant.
+
+No abrupt scaling.
+
+7. Improve branding consistency.
+
+Increase logo size slightly throughout the website:
+
+* navbar logo
+* footer logo
+* CTA logo instances
+* any repeated logo placements
+
+Reduce spacing between the navbar icon and the word "Gated."
+
+The logo and wordmark should feel like one brand unit.
+
+8. Improve hero copy hierarchy.
+
+The current paragraph feels generic.
+
+Preserve the overall message but make the hierarchy stronger.
+
+The page should immediately communicate:
+
+Events.
+Organizations.
+Tickets.
+Maps.
+
+Everything campus in one place.
+
+The value proposition should become obvious within the first few seconds.
+
+GOAL:
+
+The site should feel less like a student project showcasing an app and more like a premium product reveal.
+
+Users should first understand the vision.
+
+Then see the product.
+
+Then understand its power.

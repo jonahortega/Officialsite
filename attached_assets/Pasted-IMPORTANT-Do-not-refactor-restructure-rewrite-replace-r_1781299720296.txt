@@ -1,0 +1,86 @@
+IMPORTANT:
+
+Do not refactor, restructure, rewrite, replace, rename, or reorganize any existing code.
+
+Do not change component architecture.
+
+Do not modify functionality.
+
+Do not alter styling outside the hero section.
+
+Do not touch any section below the hero.
+
+Do not introduce new libraries, dependencies, packages, frameworks, animation systems, or heavy JavaScript.
+
+Implement the animation using the lightest possible approach within the existing codebase.
+
+The goal is a purely visual enhancement with minimal code changes and zero impact on site performance.
+
+Do not modify any copy, layout, spacing, colors, sections, screenshots, functionality, navigation, buttons, or content.
+
+The goal is ONLY to improve the first impression of the hero section.
+
+Create a staged entrance sequence.
+
+Sequence:
+
+1. Page loads.
+
+The background, navbar, logo, and overall page structure should already be visible.
+
+Do not hide the page.
+
+2. Hero headline appears first.
+
+"Unlock Your Campus."
+
+This should be the primary focal point.
+
+Use a smooth premium fade and slight upward movement.
+
+No dramatic motion.
+
+3. After a short delay, reveal the supporting subheadline.
+
+"Discover events, connect with organizations..."
+
+This should feel secondary to the headline.
+
+4. After another short delay, reveal the phone.
+
+The phone should gently fade into view.
+
+No bouncing.
+No scaling effects.
+No flashy movement.
+
+5. Finally reveal the CTA buttons.
+
+Buttons should appear last.
+
+The sequence should naturally guide attention:
+
+Headline
+→ Subheadline
+→ Phone
+→ CTA
+
+Rules:
+
+- Total animation duration should remain fast and elegant.
+- The experience should feel premium and intentional.
+- No excessive motion.
+- No parallax.
+- No particles.
+- No flashy startup animations.
+- No animation outside the hero section.
+
+Reference:
+
+Apple product pages.
+Linear.
+Cluely.
+
+The user should immediately understand "Unlock Your Campus" before anything else competes for attention.
+
+When complete, provide a summary of exactly what files were modified and confirm that no other sections of the site were changed.
