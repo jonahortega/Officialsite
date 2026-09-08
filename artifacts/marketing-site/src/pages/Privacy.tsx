@@ -3,7 +3,6 @@ import { Link } from "wouter";
 const SUPPORT = "support@gated.us";
 const EFFECTIVE = "June 22, 2026";
 const LAST_UPDATED = "June 22, 2026";
-const ADDRESS = "14 Arbach Lane, Manalapan, New Jersey 07726";
 
 const C = {
   bg: "linear-gradient(135deg, #0f0522 0%, #1a0a3e 50%, #0f0522 100%)",
@@ -40,11 +39,8 @@ export default function Privacy() {
         <div style={{ fontSize: 14, color: C.muted, marginBottom: 8 }}>
           <strong style={{ color: C.white }}>Platform / Brand Name:</strong> Gated
         </div>
-        <div style={{ fontSize: 14, color: C.muted, marginBottom: 8 }}>
-          <strong style={{ color: C.white }}>Privacy Contact / Consumer Requests:</strong> <a href={`mailto:${SUPPORT}`} style={{ color: C.accent }}>{SUPPORT}</a>
-        </div>
         <div style={{ fontSize: 14, color: C.muted, marginBottom: 48 }}>
-          <strong style={{ color: C.white }}>Mailing Address:</strong> {ADDRESS}
+          <strong style={{ color: C.white }}>Privacy Contact / Consumer Requests:</strong> <a href={`mailto:${SUPPORT}`} style={{ color: C.accent }}>{SUPPORT}</a>
         </div>
 
         {/* TOC */}
@@ -561,10 +557,9 @@ export default function Privacy() {
             {[
               ["Legal Entity", "The Greak Life Corp."],
               ["Email", SUPPORT],
-              ["Mailing Address", ADDRESS],
               ["Recommended subject line", "Privacy Request"],
             ].map(([label, value], i) => (
-              <div key={i} style={{ display: "flex", borderBottom: i < 3 ? "1px solid rgba(124,58,237,0.12)" : "none", background: i % 2 === 0 ? "rgba(124,58,237,0.06)" : "rgba(0,0,0,0.12)" }}>
+              <div key={i} style={{ display: "flex", borderBottom: i < 2 ? "1px solid rgba(124,58,237,0.12)" : "none", background: i % 2 === 0 ? "rgba(124,58,237,0.06)" : "rgba(0,0,0,0.12)" }}>
                 <div style={{ padding: "12px 16px", width: "38%", flexShrink: 0, color: C.muted, fontSize: 13, fontWeight: 600 }}>{label}</div>
                 <div style={{ padding: "12px 16px", fontSize: 13, color: C.subtle }}>
                   {label === "Email" ? <a href={`mailto:${value}`} style={{ color: C.accent }}>{value}</a> : value}
