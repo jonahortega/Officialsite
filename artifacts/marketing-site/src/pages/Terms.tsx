@@ -24,7 +24,7 @@ export default function Terms() {
 
         <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
           <div style={{ width: 36, height: 36, borderRadius: 10, background: "linear-gradient(135deg,#7c3aed,#a855f7)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18 }}>⚖️</div>
-          <span style={{ fontSize: 13, color: C.muted, fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" }}>The Greek Life Corp</span>
+          <span style={{ fontSize: 13, color: C.muted, fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" }}>The Greak Life Corp</span>
         </div>
 
         <h1 style={{ fontSize: "clamp(28px,5vw,42px)", fontWeight: 800, color: C.white, marginBottom: 8, lineHeight: 1.15 }}>Terms of Service</h1>
@@ -34,7 +34,7 @@ export default function Terms() {
           <span><strong style={{ color: C.white }}>Last Updated:</strong> {LAST_UPDATED}</span>
         </div>
         <div style={{ fontSize: 14, color: C.muted, marginBottom: 12 }}>
-          <strong style={{ color: C.white }}>Legal Entity / Operator:</strong> The Greek Life Corp., a Delaware corporation
+          <strong style={{ color: C.white }}>Legal Entity / Operator:</strong> The Greak Life Corp., a Delaware corporation
         </div>
         <div style={{ fontSize: 14, color: C.muted, marginBottom: 12 }}>
           <strong style={{ color: C.white }}>Platform Name:</strong> Gated (the "Gated" mobile application, website, and related services)
@@ -44,7 +44,7 @@ export default function Terms() {
         </div>
 
         <Section n="1" title="Agreement to These Terms">
-          <p style={{ marginBottom: 12 }}>These Terms of Service ("Terms") are a binding agreement between you and The Greek Life Corp. ("Gated," "we," "us," or "our").</p>
+          <p style={{ marginBottom: 12 }}>These Terms of Service ("Terms") are a binding agreement between you and The Greak Life Corp. ("Gated," "we," "us," or "our").</p>
           <p style={{ marginBottom: 12 }}>By accessing or using the Gated mobile application, website, or related services (collectively, the "Platform"), including by creating an account, browsing events, registering for events, purchasing tickets, hosting or administering events, creating or managing an organization profile, using messaging or chat features, or otherwise interacting with the Platform, you agree to these Terms and our Privacy Policy (which is incorporated by reference).</p>
           <p style={{ marginBottom: 12 }}>If you do not agree to these Terms, do not use the Platform.</p>
           <p>If you use the Platform on behalf of an organization (such as a fraternity, sorority, club, team, or other student group), you represent and warrant that you have authority to bind that organization to these Terms.</p>
@@ -72,7 +72,7 @@ export default function Terms() {
 
         <Section n="3" title="No University Affiliation or Endorsement">
           <SubSection title="3.1 Independent Company">
-            <p>Gated is operated by The Greek Life Corp., a private Delaware corporation. Gated is not a university, college, school district, campus department, student government body, Greek council, national fraternity or sorority headquarters, or official arm of any educational institution.</p>
+            <p>Gated is operated by The Greak Life Corp., a private Delaware corporation. Gated is not a university, college, school district, campus department, student government body, Greek council, national fraternity or sorority headquarters, or official arm of any educational institution.</p>
           </SubSection>
           <SubSection title="3.2 No Partnership, Agency, or Endorsement">
             <p style={{ marginBottom: 12 }}>Gated is not directly associated with, affiliated with, endorsed by, sponsored by, or acting on behalf of any university, college, or other educational institution, even when:</p>
@@ -171,7 +171,7 @@ export default function Terms() {
             <p>Gated does not guarantee that any event will occur as listed. Events may be changed, postponed, or cancelled by organizers. Users should confirm important details directly with organizers.</p>
           </SubSection>
           <SubSection title="7.4 Assumption of Risk and Release of Claims">
-            <p>You knowingly and voluntarily assume all risks, known and unknown, arising from or related to your participation in, travel to or from, or interaction with any event, organizer, venue, or other user. To the fullest extent permitted by law, you release, waive, and discharge The Greek Life Corp. and its affiliates, officers, directors, employees, contractors, ambassadors, and agents from any and all claims, demands, damages, causes of action, and liabilities arising from or related to your participation in any event or your interactions on or off the Platform.</p>
+            <p>You knowingly and voluntarily assume all risks, known and unknown, arising from or related to your participation in, travel to or from, or interaction with any event, organizer, venue, or other user. To the fullest extent permitted by law, you release, waive, and discharge The Greak Life Corp. and its affiliates, officers, directors, employees, contractors, ambassadors, and agents from any and all claims, demands, damages, causes of action, and liabilities arising from or related to your participation in any event or your interactions on or off the Platform.</p>
           </SubSection>
         </Section>
 
@@ -257,7 +257,7 @@ export default function Terms() {
             <p>You retain ownership of content you submit to the Platform, including profile information, event listings, photos, messages, and organization materials, subject to third-party rights.</p>
           </SubSection>
           <SubSection title="12.2 License to Gated">
-            <p>You grant The Greek Life Corp. a non-exclusive, worldwide, royalty-free, sublicensable license to host, store, reproduce, display, distribute, and otherwise use your content as reasonably necessary to operate, maintain, and improve the Platform; to promote the Platform and public listings; to enforce these Terms; and to comply with law. This license continues for a commercially reasonable period after content is removed, to allow for backups, logs, and legal compliance.</p>
+            <p>You grant The Greak Life Corp. a non-exclusive, worldwide, royalty-free, sublicensable license to host, store, reproduce, display, distribute, and otherwise use your content as reasonably necessary to operate, maintain, and improve the Platform; to promote the Platform and public listings; to enforce these Terms; and to comply with law. This license continues for a commercially reasonable period after content is removed, to allow for backups, logs, and legal compliance.</p>
           </SubSection>
           <SubSection title="12.3 Public Visibility">
             <p>Content you make public on the Platform, such as event listings or organization pages, may be visible to other users according to product design and visibility settings.</p>
@@ -268,7 +268,7 @@ export default function Terms() {
         </Section>
 
         <Section n="13" title="Gated Intellectual Property">
-          <p style={{ marginBottom: 12 }}>The Platform software, branding, logos, design, and proprietary materials are owned by or licensed to The Greek Life Corp. and are protected by intellectual property laws. Except for the limited right to use the Platform under these Terms, no rights are granted to you. You may not copy, modify, distribute, sell, or lease any part of the Platform except as allowed by law or with our written permission.</p>
+          <p style={{ marginBottom: 12 }}>The Platform software, branding, logos, design, and proprietary materials are owned by or licensed to The Greak Life Corp. and are protected by intellectual property laws. Except for the limited right to use the Platform under these Terms, no rights are granted to you. You may not copy, modify, distribute, sell, or lease any part of the Platform except as allowed by law or with our written permission.</p>
           <SubSection title="13.1 Copyright Complaints (DMCA)">
             <p>We respect intellectual property rights and respond to notices of alleged copyright infringement consistent with the Digital Millennium Copyright Act (DMCA). If you believe content on the Platform infringes your copyright, send a written notice to our designated DMCA agent at <a href={`mailto:${SUPPORT}`} style={{ color: C.accent }}>{SUPPORT}</a> that includes: (a) your physical or electronic signature; (b) identification of the copyrighted work claimed to be infringed; (c) identification of the allegedly infringing material and information reasonably sufficient to locate it; (d) your contact information; (e) a statement that you have a good-faith belief that the use is not authorized by the copyright owner, its agent, or the law; and (f) a statement, made under penalty of perjury, that the information in your notice is accurate and that you are the copyright owner or authorized to act on the owner's behalf. We may remove or disable access to allegedly infringing material and may terminate the accounts of users who are repeat infringers.</p>
           </SubSection>
@@ -281,7 +281,7 @@ export default function Terms() {
         <Section n="15" title="Third-Party Services and Links">
           <p style={{ marginBottom: 12 }}>The Platform may integrate with or link to third-party services, websites, maps, payment systems, or content. Gated does not control and is not responsible for third-party services. Your use of third-party services is at your own risk and subject to their terms.</p>
           <SubSection title="15.1 Mobile Application and App Store Terms">
-            <p>If you download the Gated application from the Apple App Store or Google Play, your use is also subject to the applicable app store's terms of service. You acknowledge that these Terms are between you and The Greek Life Corp. only, and not with Apple Inc. or Google LLC, and that those providers are not responsible for the application or its content. The app store providers have no obligation to furnish any maintenance or support services for the application, and are not responsible for addressing any claims relating to the application, including product liability, legal or regulatory non-compliance, or intellectual property claims. You represent that you are not located in a country subject to a U.S. Government embargo or designated as a "terrorist supporting" country, and are not listed on any U.S. Government list of prohibited or restricted parties. Apple Inc. and Google LLC, and their subsidiaries, are third-party beneficiaries of these Terms and may enforce them against you as a user.</p>
+            <p>If you download the Gated application from the Apple App Store or Google Play, your use is also subject to the applicable app store's terms of service. You acknowledge that these Terms are between you and The Greak Life Corp. only, and not with Apple Inc. or Google LLC, and that those providers are not responsible for the application or its content. The app store providers have no obligation to furnish any maintenance or support services for the application, and are not responsible for addressing any claims relating to the application, including product liability, legal or regulatory non-compliance, or intellectual property claims. You represent that you are not located in a country subject to a U.S. Government embargo or designated as a "terrorist supporting" country, and are not listed on any U.S. Government list of prohibited or restricted parties. Apple Inc. and Google LLC, and their subsidiaries, are third-party beneficiaries of these Terms and may enforce them against you as a user.</p>
           </SubSection>
         </Section>
 
@@ -298,13 +298,13 @@ export default function Terms() {
         </Section>
 
         <Section n="17" title="Limitation of Liability">
-          <p style={{ marginBottom: 12 }}><strong style={{ color: C.white }}>TO THE FULLEST EXTENT PERMITTED BY LAW, THE GREEK LIFE CORP. SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, OR FOR LOSS OF PROFITS, REVENUE, DATA, GOODWILL, OR BUSINESS OPPORTUNITY, ARISING OUT OF OR RELATED TO THESE TERMS, THE PLATFORM, ANY EVENT, ORGANIZER, ATTENDEE, OR USER CONTENT, ANY PAYMENT, TICKET, OR REFUND MATTER, OR ANY UNAUTHORIZED ACCESS TO OR ALTERATION OF YOUR CONTENT. THIS LIMITATION SHALL NOT APPLY TO LIABILITY ARISING FROM GATED'S GROSS NEGLIGENCE, WILLFUL MISCONDUCT, OR FRAUD, OR TO INDEMNIFICATION OBLIGATIONS UNDER SECTION 18.</strong></p>
-          <p style={{ marginBottom: 12 }}><strong style={{ color: C.white }}>IN NO EVENT SHALL THE GREEK LIFE CORP.'S AGGREGATE LIABILITY ARISING OUT OF OR RELATING TO THESE TERMS OR THE PLATFORM EXCEED THE GREATER OF: (A) U.S. $100, OR (B) THE TOTAL AMOUNTS YOU PAID TO THE GREEK LIFE CORP. FOR PLATFORM FEES IN THE TWELVE (12) MONTHS BEFORE THE CLAIM (IF ANY).</strong></p>
+          <p style={{ marginBottom: 12 }}><strong style={{ color: C.white }}>TO THE FULLEST EXTENT PERMITTED BY LAW, THE GREAK LIFE CORP. SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, OR FOR LOSS OF PROFITS, REVENUE, DATA, GOODWILL, OR BUSINESS OPPORTUNITY, ARISING OUT OF OR RELATED TO THESE TERMS, THE PLATFORM, ANY EVENT, ORGANIZER, ATTENDEE, OR USER CONTENT, ANY PAYMENT, TICKET, OR REFUND MATTER, OR ANY UNAUTHORIZED ACCESS TO OR ALTERATION OF YOUR CONTENT. THIS LIMITATION SHALL NOT APPLY TO LIABILITY ARISING FROM GATED'S GROSS NEGLIGENCE, WILLFUL MISCONDUCT, OR FRAUD, OR TO INDEMNIFICATION OBLIGATIONS UNDER SECTION 18.</strong></p>
+          <p style={{ marginBottom: 12 }}><strong style={{ color: C.white }}>IN NO EVENT SHALL THE GREAK LIFE CORP.'S AGGREGATE LIABILITY ARISING OUT OF OR RELATING TO THESE TERMS OR THE PLATFORM EXCEED THE GREATER OF: (A) U.S. $100, OR (B) THE TOTAL AMOUNTS YOU PAID TO THE GREAK LIFE CORP. FOR PLATFORM FEES IN THE TWELVE (12) MONTHS BEFORE THE CLAIM (IF ANY).</strong></p>
           <p>Some jurisdictions do not allow certain limitations of liability; in those cases, our liability is limited to the minimum extent permitted by law.</p>
         </Section>
 
         <Section n="18" title="Indemnification">
-          <p style={{ marginBottom: 12 }}>You agree to indemnify, defend, and hold harmless The Greek Life Corp. and its affiliates, officers, employees, contractors, and agents from and against any third-party claims, damages, losses, liabilities, costs, and expenses (including reasonable attorneys' fees) arising out of or related to:</p>
+          <p style={{ marginBottom: 12 }}>You agree to indemnify, defend, and hold harmless The Greak Life Corp. and its affiliates, officers, employees, contractors, and agents from and against any third-party claims, damages, losses, liabilities, costs, and expenses (including reasonable attorneys' fees) arising out of or related to:</p>
           <ul style={{ margin: "0 0 12px 1.2rem", padding: 0, listStyleType: "disc", lineHeight: 1.8 }}>
             <li>Your use of the Platform;</li>
             <li>Your events, listings, organization pages, or hosted activities;</li>
@@ -327,10 +327,10 @@ export default function Terms() {
             <p>To the extent permitted by law, any claim arising out of or relating to these Terms or the Platform must be filed within one (1) year after the claim accrues, unless a longer period is required by law.</p>
           </SubSection>
           <SubSection title="19.4 Binding Arbitration">
-            <p>Except for (a) individual claims in small-claims court and (b) claims for injunctive or equitable relief to protect intellectual property or address unauthorized access to the Platform, any dispute, claim, or controversy arising out of or relating to these Terms or the Platform shall be resolved by final and binding arbitration administered by the American Arbitration Association (AAA) under its Consumer Arbitration Rules, before a single arbitrator. The Greek Life Corp. will pay all arbitration filing fees, arbitrator compensation, and administrative costs in excess of the amount you would be required to pay to file a complaint in court, unless the arbitrator determines that your claims are frivolous. The arbitration shall be conducted in New Castle County, Delaware, or by remote means, and judgment on the award may be entered in any court of competent jurisdiction. This Section is governed by the Federal Arbitration Act.</p>
+            <p>Except for (a) individual claims in small-claims court and (b) claims for injunctive or equitable relief to protect intellectual property or address unauthorized access to the Platform, any dispute, claim, or controversy arising out of or relating to these Terms or the Platform shall be resolved by final and binding arbitration administered by the American Arbitration Association (AAA) under its Consumer Arbitration Rules, before a single arbitrator. The Greak Life Corp. will pay all arbitration filing fees, arbitrator compensation, and administrative costs in excess of the amount you would be required to pay to file a complaint in court, unless the arbitrator determines that your claims are frivolous. The arbitration shall be conducted in New Castle County, Delaware, or by remote means, and judgment on the award may be entered in any court of competent jurisdiction. This Section is governed by the Federal Arbitration Act.</p>
           </SubSection>
           <SubSection title="19.5 Class Action Waiver; Opt-Out">
-            <p>You and The Greek Life Corp. agree that each may bring claims against the other only in an individual capacity, and not as a plaintiff or class member in any purported class, collective, consolidated, or representative proceeding. The arbitrator may not consolidate more than one person's claims or preside over any form of class or representative proceeding. You may opt out of this arbitration and class-action waiver provision by sending written notice to <a href={`mailto:${SUPPORT}`} style={{ color: C.accent }}>{SUPPORT}</a> within thirty (30) days of first accepting these Terms; if you opt out, the dispute-resolution, governing-law, and venue provisions in Sections 19.1 through 19.3 will apply.</p>
+            <p>You and The Greak Life Corp. agree that each may bring claims against the other only in an individual capacity, and not as a plaintiff or class member in any purported class, collective, consolidated, or representative proceeding. The arbitrator may not consolidate more than one person's claims or preside over any form of class or representative proceeding. You may opt out of this arbitration and class-action waiver provision by sending written notice to <a href={`mailto:${SUPPORT}`} style={{ color: C.accent }}>{SUPPORT}</a> within thirty (30) days of first accepting these Terms; if you opt out, the dispute-resolution, governing-law, and venue provisions in Sections 19.1 through 19.3 will apply.</p>
           </SubSection>
         </Section>
 
@@ -348,7 +348,7 @@ export default function Terms() {
 
         <Section n="23" title="Miscellaneous">
           <SubSection title="23.1 Entire Agreement">
-            <p>These Terms, together with the Privacy Policy and any additional terms presented for specific features, constitute the entire agreement between you and The Greek Life Corp. regarding the Platform.</p>
+            <p>These Terms, together with the Privacy Policy and any additional terms presented for specific features, constitute the entire agreement between you and The Greak Life Corp. regarding the Platform.</p>
           </SubSection>
           <SubSection title="23.2 Severability">
             <p>If any provision is held invalid or unenforceable, the remaining provisions remain in effect.</p>
@@ -363,7 +363,7 @@ export default function Terms() {
             <p>We are not liable for delays or failures caused by events beyond our reasonable control.</p>
           </SubSection>
           <SubSection title="23.6 Contact">
-            <p>Questions about these Terms: The Greek Life Corp. | Email: <a href={`mailto:${SUPPORT}`} style={{ color: C.accent }}>{SUPPORT}</a></p>
+            <p>Questions about these Terms: The Greak Life Corp. | Email: <a href={`mailto:${SUPPORT}`} style={{ color: C.accent }}>{SUPPORT}</a></p>
           </SubSection>
         </Section>
 
@@ -372,7 +372,7 @@ export default function Terms() {
           <h2 style={{ color: C.white, fontSize: 17, fontWeight: 700, marginBottom: 16 }}>Appendix A — Summary of Key User-Facing Policies</h2>
           <div style={{ borderRadius: 14, overflow: "hidden", border: "1px solid rgba(124,58,237,0.25)" }}>
             {[
-              ["Operator", "The Greek Life Corp. (Delaware corporation), app brand: Gated"],
+              ["Operator", "The Greak Life Corp. (Delaware corporation), app brand: Gated"],
               ["University relationship", "Not affiliated with or endorsed by any university"],
               ["Who runs events", "Independent organizers/users, not Gated"],
               ["Alcohol at real-world events", "Gated does not prohibit lawful alcohol presence/service/sale at independent in-person events"],

@@ -25,7 +25,7 @@ export default function Privacy() {
 
         <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
           <div style={{ width: 36, height: 36, borderRadius: 10, background: "linear-gradient(135deg,#7c3aed,#a855f7)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18 }}>🔒</div>
-          <span style={{ fontSize: 13, color: C.muted, fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" }}>The Greek Life Corp</span>
+          <span style={{ fontSize: 13, color: C.muted, fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" }}>The Greak Life Corp</span>
         </div>
 
         <h1 style={{ fontSize: "clamp(28px,5vw,42px)", fontWeight: 800, color: C.white, marginBottom: 8, lineHeight: 1.15 }}>Privacy Policy</h1>
@@ -35,7 +35,7 @@ export default function Privacy() {
           <span><strong style={{ color: C.white }}>Last Updated:</strong> {LAST_UPDATED}</span>
         </div>
         <div style={{ fontSize: 14, color: C.muted, marginBottom: 8 }}>
-          <strong style={{ color: C.white }}>Legal Entity / Data Controller:</strong> The Greek Life Corp., a Delaware corporation
+          <strong style={{ color: C.white }}>Legal Entity / Data Controller:</strong> The Greak Life Corp., a Delaware corporation
         </div>
         <div style={{ fontSize: 14, color: C.muted, marginBottom: 8 }}>
           <strong style={{ color: C.white }}>Platform / Brand Name:</strong> Gated
@@ -68,7 +68,7 @@ export default function Privacy() {
         </div>
 
         <Section n="1" title="Introduction and Scope">
-          <p style={{ marginBottom: 12 }}>This Privacy Policy ("Policy") describes how The Greek Life Corp. ("Gated," "we," "us," or "our") collects, uses, discloses, and otherwise processes information when you access or use:</p>
+          <p style={{ marginBottom: 12 }}>This Privacy Policy ("Policy") describes how The Greak Life Corp. ("Gated," "we," "us," or "our") collects, uses, discloses, and otherwise processes information when you access or use:</p>
           <ul style={{ margin: "0 0 12px 1.2rem", padding: 0, listStyleType: "disc", lineHeight: 1.8 }}>
             <li>the Gated mobile application (including iOS builds distributed through the Apple App Store and TestFlight);</li>
             <li>our website and web application, if any; and</li>
@@ -559,7 +559,7 @@ export default function Privacy() {
           <p style={{ marginBottom: 16 }}>For privacy questions, requests, or complaints:</p>
           <div style={{ borderRadius: 12, overflow: "hidden", border: "1px solid rgba(124,58,237,0.2)" }}>
             {[
-              ["Legal Entity", "The Greek Life Corp."],
+              ["Legal Entity", "The Greak Life Corp."],
               ["Email", SUPPORT],
               ["Mailing Address", ADDRESS],
               ["Recommended subject line", "Privacy Request"],

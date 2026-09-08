@@ -4,29 +4,24 @@ import { MapPin, Ticket, Search, Calendar, QrCode, Users, ChevronLeft, ChevronRi
 
 // ── Design System Tokens ───────────────────────────────────────────────────────
 
-// Spacing scale (8-point grid)
 const SP = { xs: 8, sm: 16, md: 24, lg: 32, xl: 48, xxl: 64, section: 96 } as const;
 
-// Radius system — 3 levels + pill
 const R = {
-  xs:   8,    // inline badges, store buttons
-  sm:   12,   // icon boxes, nav logo, tags
-  md:   16,   // cards, all grids
-  lg:   24,   // containers, CTA block, featured panels
-  pill: 9999, // buttons, pills
+  xs:   8,
+  sm:   12,
+  md:   16,
+  lg:   24,
+  pill: 9999,
 } as const;
 
-// Shadow system — 3 levels only
 const SH = {
   subtle:   "0 1px 4px rgba(0,0,0,0.2), 0 4px 16px rgba(0,0,0,0.18)",
   medium:   "0 4px 24px rgba(0,0,0,0.4), 0 1px 6px rgba(0,0,0,0.18)",
   elevated: "0 8px 40px rgba(0,0,0,0.55), 0 2px 12px rgba(0,0,0,0.25)",
 } as const;
 
-// Special: primary CTA glow (brand color only, used once — main CTA button)
 const SH_PRIMARY = "0 4px 20px rgba(124,58,237,0.4), 0 1px 4px rgba(0,0,0,0.2)";
 
-// Background levels
 const BG = {
   card:     "rgba(255,255,255,0.06)",
   elevated: "rgba(255,255,255,0.035)",
@@ -34,16 +29,48 @@ const BG = {
   deep:     "linear-gradient(135deg, rgba(14,6,40,0.99) 0%, rgba(22,10,56,0.99) 100%)",
 } as const;
 
-// Typography
 const TEXT = {
   secondary: "rgba(255,255,255,0.45)",
   tertiary:  "rgba(255,255,255,0.28)",
   accent:    "#c084fc",
 } as const;
 
-// Card padding — two sizes, used consistently
-const PAD_CARD = `${SP.md}px ${SP.md}px`;       // 24 24 — feature/why cards
-const PAD_PANEL = `${SP.lg}px ${SP.md + SP.xs}px`; // 32 20 — featured panels, how-it-works
+const PAD_CARD = `${SP.md}px ${SP.md}px`;
+const PAD_PANEL = `${SP.lg}px ${SP.md + SP.xs}px`;
+// ──────────────────────────────────────────────────────────────────────────────
+
+// ── Count-Up Component ────────────────────────────────────────────────────────
+function CountUp({ to, prefix = "", suffix = "", duration = 1600, decimals = 0 }: {
+  to: number; prefix?: string; suffix?: string; duration?: number; decimals?: number;
+}) {
+  const [val, setVal] = useState(0);
+  const spanRef = useRef<HTMLSpanElement>(null);
+  const started = useRef(false);
+  useEffect(() => {
+    const el = spanRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !started.current) {
+        started.current = true;
+        const begin = performance.now();
+        const tick = (now: number) => {
+          const p = Math.min((now - begin) / duration, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          const cur = Math.round(eased * to * Math.pow(10, decimals)) / Math.pow(10, decimals);
+          setVal(cur);
+          if (p < 1) requestAnimationFrame(tick);
+          else setVal(to);
+        };
+        requestAnimationFrame(tick);
+        io.disconnect();
+      }
+    }, { threshold: 0.5 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [to, duration, decimals]);
+  const display = decimals > 0 ? val.toFixed(decimals) : Math.round(val).toLocaleString();
+  return <span ref={spanRef}>{prefix}{display}{suffix}</span>;
+}
 // ──────────────────────────────────────────────────────────────────────────────
 
 function InstagramLogo({ size = 24, color = "currentColor" }: { size?: number; color?: string }) {
@@ -174,7 +201,6 @@ function IPhoneMockup() {
                 animation: phase === "opening" ? "gatedScreenFade 1.0s cubic-bezier(0.4,0,0.2,1) forwards" : "none",
               }}>
                 <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,12,0.14)" }} />
-                {/* Status bar — top:14 aligns exactly with the dynamic island row */}
                 <div style={{ position: "absolute", top: 14, left: 0, right: 0, height: 32, display: "flex", alignItems: "center", justifyContent: "space-between", paddingLeft: 26, paddingRight: 26 }}>
                   <span style={{ fontSize: 15, fontWeight: 600, color: "#fff", letterSpacing: "-0.3px", textShadow: "0 1px 4px rgba(0,0,0,0.35)" }}>2:20</span>
                   <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
@@ -196,7 +222,6 @@ function IPhoneMockup() {
                     </div>
                   </div>
                 </div>
-                {/* Gated icon — large, top-left, absolute so position is pixel-precise */}
                 <div style={{
                   position: "absolute", top: 88, left: 28,
                   display: "flex", flexDirection: "column", alignItems: "center",
@@ -206,7 +231,6 @@ function IPhoneMockup() {
                   <img src={`${base}logo.png`} alt="Gated" style={{ width: 108, height: 108, objectFit: "contain", filter: "drop-shadow(0 0 16px rgba(148,60,240,0.7)) drop-shadow(0 3px 10px rgba(0,0,0,0.6))", marginBottom: 4 }} />
                   <span style={{ fontSize: 12, fontWeight: 500, color: "#fff", letterSpacing: "0.01em", textShadow: "0 1px 3px rgba(0,0,0,0.5)" }}>Gated</span>
                 </div>
-                {/* Home indicator */}
                 <div style={{ position: "absolute", bottom: 10, left: "50%", transform: "translateX(-50%)", width: 130, height: 5, borderRadius: 3, background: "rgba(255,255,255,0.25)" }} />
               </div>
             )}
@@ -214,7 +238,6 @@ function IPhoneMockup() {
         </div>
       </div>
 
-      {/* Label + dots + controls — consistent SP spacing */}
       <div style={{ marginTop: SP.sm, color: TEXT.secondary, fontSize: 13, fontWeight: 500, letterSpacing: "0.02em" }}>{screens[current].label}</div>
       <div className="flex gap-2" style={{ marginTop: SP.xs }}>
         {screens.map((_, i) => (
@@ -236,6 +259,7 @@ function IPhoneMockup() {
 export default function Home() {
   const [navScrolled, setNavScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const phoneRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setNavScrolled(window.scrollY > 40);
@@ -255,13 +279,23 @@ export default function Home() {
     return () => io.disconnect();
   }, []);
 
+  // Parallax drift for phone mockup
+  useEffect(() => {
+    const onScroll = () => {
+      if (!phoneRef.current) return;
+      const drift = Math.min(window.scrollY * 0.055, 48);
+      phoneRef.current.style.transform = `translateY(${drift}px)`;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const navLinks = [
     { label: "Features", href: "#features" },
     { label: "Community", href: "#social" },
     { label: "Contact Us", href: "mailto:support@gatedapp.us" },
   ];
 
-  // Shared section header layout
   const SectionHeader = ({ eyebrow, title, subtitle, center = true }: { eyebrow?: string; title: string; subtitle?: string; center?: boolean }) => (
     <div style={{ textAlign: center ? "center" : "left", marginBottom: SP.xxl }}>
       {eyebrow && (
@@ -309,11 +343,12 @@ export default function Home() {
           18%  { opacity: 1; }
           100% { opacity: 0; }
         }
+        @keyframes marqueeScroll {
+          from { transform: translateX(0); }
+          to   { transform: translateX(-50%); }
+        }
         .gated-phone-inner {
           transition: transform 0.5s cubic-bezier(0.22,1,0.36,1);
-        }
-        .gated-screens:hover .gated-phone-inner {
-          transform: translateY(-6px);
         }
         .gated-phone-glow {
           transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1);
@@ -333,6 +368,7 @@ export default function Home() {
         [data-sr].sr-visible > *:nth-child(5) { transition-delay: 0.38s; }
         @media (prefers-reduced-motion: reduce) {
           [data-sr] > * { opacity: 1; transform: none; transition: none; }
+          @keyframes marqueeScroll { from { transform: none; } to { transform: none; } }
         }
       `}</style>
 
@@ -350,7 +386,7 @@ export default function Home() {
             ))}
           </div>
 
-          <a href="https://testflight.apple.com/join/mf7CCamE" target="_blank" rel="noopener noreferrer" className="hidden md:inline-flex" style={{ background: "linear-gradient(135deg, #7c3aed, #a855f7)", color: "#fff", padding: "10px 22px", borderRadius: R.pill, fontSize: 14, fontWeight: 600, textDecoration: "none", boxShadow: SH_PRIMARY, transition: "transform 0.2s" }} onMouseEnter={e => { (e.target as HTMLElement).style.transform = "scale(1.04)"; }} onMouseLeave={e => { (e.target as HTMLElement).style.transform = "scale(1)"; }}>
+          <a href="https://testflight.apple.com/join/v7XxS6fu" target="_blank" rel="noopener noreferrer" className="hidden md:inline-flex" style={{ background: "linear-gradient(135deg, #7c3aed, #a855f7)", color: "#fff", padding: "10px 22px", borderRadius: R.pill, fontSize: 14, fontWeight: 600, textDecoration: "none", boxShadow: SH_PRIMARY, transition: "transform 0.2s" }} onMouseEnter={e => { (e.target as HTMLElement).style.transform = "scale(1.04)"; }} onMouseLeave={e => { (e.target as HTMLElement).style.transform = "scale(1)"; }}>
             Download Beta
           </a>
 
@@ -364,7 +400,7 @@ export default function Home() {
             {navLinks.map(l => (
               <a key={l.label} href={l.href} onClick={() => setMobileMenuOpen(false)} style={{ padding: "12px 16px", borderRadius: R.md, fontSize: 15, fontWeight: 600, color: "rgba(255,255,255,0.85)", textDecoration: "none", background: BG.card, display: "block" }}>{l.label}</a>
             ))}
-            <a href="https://testflight.apple.com/join/mf7CCamE" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} style={{ marginTop: SP.xs, display: "block", textAlign: "center", background: "linear-gradient(135deg, #7c3aed, #a855f7)", color: "#fff", padding: "14px 22px", borderRadius: R.pill, fontSize: 15, fontWeight: 700, textDecoration: "none", boxShadow: SH_PRIMARY }}>
+            <a href="https://testflight.apple.com/join/v7XxS6fu" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} style={{ marginTop: SP.xs, display: "block", textAlign: "center", background: "linear-gradient(135deg, #7c3aed, #a855f7)", color: "#fff", padding: "14px 22px", borderRadius: R.pill, fontSize: 15, fontWeight: 700, textDecoration: "none", boxShadow: SH_PRIMARY }}>
               Download Beta
             </a>
           </div>
@@ -385,7 +421,7 @@ export default function Home() {
           </h1>
           <div style={{ width: 240, height: 1, background: "rgba(200,190,255,0.18)", margin: `${SP.lg}px auto`, transformOrigin: "center", animation: "gatedDividerReveal 1.0s cubic-bezier(0.22,1,0.36,1) 0.55s both" }} />
           <div className="flex flex-col sm:flex-row gap-3 justify-center" style={{ marginTop: SP.xl, position: "relative", zIndex: 1, animation: "gatedFadeUp 0.65s cubic-bezier(0.22,1,0.36,1) 1.65s both" }}>
-            <a href="https://testflight.apple.com/join/mf7CCamE" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", background: "linear-gradient(135deg, #7c3aed, #a855f7)", color: "#fff", padding: "14px 28px", borderRadius: R.pill, fontSize: 15, fontWeight: 700, textDecoration: "none", boxShadow: SH_PRIMARY }}>
+            <a href="https://testflight.apple.com/join/v7XxS6fu" target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", background: "linear-gradient(135deg, #7c3aed, #a855f7)", color: "#fff", padding: "14px 28px", borderRadius: R.pill, fontSize: 15, fontWeight: 700, textDecoration: "none", boxShadow: SH_PRIMARY }}>
               Download Beta
             </a>
             <a href="#screens" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", background: BG.card, color: "rgba(255,255,255,0.75)", padding: "14px 28px", borderRadius: R.pill, fontSize: 15, fontWeight: 500, textDecoration: "none", backdropFilter: "blur(10px)" }}>
@@ -393,34 +429,41 @@ export default function Home() {
             </a>
           </div>
         </div>
+        {/* Phone wrapper with parallax ref */}
         <div id="screens" className="flex justify-center gated-screens" style={{ width: "100%", position: "relative", animation: "gatedPhoneReveal 1.3s cubic-bezier(0.22,1,0.36,1) 2.65s both" }}>
           <div className="gated-phone-glow" style={{ position: "absolute", inset: "-8% -6%", background: "radial-gradient(ellipse 52% 68% at 50% 46%, rgba(180,100,255,0.42) 0%, rgba(148,60,240,0.26) 20%, rgba(120,40,220,0.12) 46%, rgba(90,20,200,0.04) 68%, transparent 84%)", filter: "blur(18px)", pointerEvents: "none", zIndex: 0, opacity: 0.88, animation: "gatedGlowBloom 1.8s cubic-bezier(0.22,1,0.36,1) 1.3s forwards" }} />
-          <div className="gated-phone-inner" style={{ position: "relative", zIndex: 1 }}>
+          <div ref={phoneRef} className="gated-phone-inner" style={{ position: "relative", zIndex: 1 }}>
             <IPhoneMockup />
           </div>
         </div>
       </section>
 
-      {/* ── STATS STRIP ── */}
-      <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", borderBottom: "1px solid rgba(255,255,255,0.06)", background: "rgba(0,0,0,0.25)", backdropFilter: "blur(24px)" }}>
+      {/* ── STATS STRIP — near-black to break rhythm ── */}
+      <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", borderBottom: "1px solid rgba(255,255,255,0.06)", background: "rgba(4,1,18,0.97)", backdropFilter: "blur(24px)" }}>
         <div className="max-w-5xl mx-auto px-5 grid grid-cols-3" style={{ paddingTop: SP.lg, paddingBottom: SP.lg }}>
           {[
-            { value: "100%", label: "Revenue to orgs" },
-            { value: "$0", label: "Platform fees ever" },
-            { value: "iOS", label: "Beta live now" },
+            { value: null, countTo: 100, suffix: "%", label: "Revenue to orgs" },
+            { value: "$0", countTo: null, suffix: "", label: "Platform fees ever" },
+            { value: "iOS", countTo: null, suffix: "", label: "Beta live now" },
           ].map((stat, i) => (
             <div key={i} className="flex flex-col items-center text-center" style={{ borderRight: i < 2 ? "1px solid rgba(255,255,255,0.07)" : "none" }}>
-              <div style={{ fontSize: "clamp(1.6rem,4vw,2.4rem)", fontWeight: 900, letterSpacing: "-2px", background: "linear-gradient(135deg, #e9d5ff, #a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", lineHeight: 1.1 }}>{stat.value}</div>
+              <div style={{ fontSize: "clamp(1.6rem,4vw,2.4rem)", fontWeight: 900, letterSpacing: "-2px", background: "linear-gradient(135deg, #e9d5ff, #a855f7)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", lineHeight: 1.1 }}>
+                {stat.countTo !== null
+                  ? <CountUp to={stat.countTo} suffix={stat.suffix} duration={1800} />
+                  : stat.value}
+              </div>
               <div style={{ fontSize: 12, color: TEXT.tertiary, marginTop: 5, fontWeight: 500, letterSpacing: "0.02em" }}>{stat.label}</div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* ── FEATURES BENTO ── */}
-      <section id="features" className="max-w-6xl mx-auto px-5" style={{ paddingTop: SP.section, paddingBottom: SP.section }}>
-        <div data-sr style={{ textAlign: "center", marginBottom: SP.xxl }}>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 7, background: "rgba(168,85,247,0.1)", border: "1px solid rgba(168,85,247,0.2)", borderRadius: R.pill, padding: "5px 16px", fontSize: 11, color: TEXT.accent, fontWeight: 700, marginBottom: SP.md, letterSpacing: "0.08em" }}>
+      {/* ── FEATURES BENTO — glassier purple with radial glow ── */}
+      <section id="features" className="max-w-6xl mx-auto px-5" style={{ paddingTop: SP.section, paddingBottom: SP.section, position: "relative" }}>
+        {/* Subtle radial glow behind BUILT FOR CAMPUS pill */}
+        <div style={{ position: "absolute", top: SP.section, left: "50%", transform: "translateX(-50%)", width: 600, height: 300, background: "radial-gradient(ellipse, rgba(168,85,247,0.14) 0%, transparent 70%)", pointerEvents: "none" }} />
+        <div data-sr style={{ textAlign: "center", marginBottom: SP.xxl, position: "relative" }}>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 7, background: "rgba(168,85,247,0.14)", border: "1px solid rgba(168,85,247,0.25)", borderRadius: R.pill, padding: "5px 16px", fontSize: 11, color: TEXT.accent, fontWeight: 700, marginBottom: SP.md, letterSpacing: "0.08em", boxShadow: "0 0 24px rgba(168,85,247,0.18)" }}>
             <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#a855f7", boxShadow: "0 0 6px #a855f7" }} />
             BUILT FOR CAMPUS
           </div>
@@ -513,11 +556,15 @@ export default function Home() {
                   </div>
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: 12, borderTop: "1px solid rgba(255,255,255,0.08)" }}>
                     <div>
-                      <div style={{ fontSize: 22, fontWeight: 900, color: "#22c55e", letterSpacing: "-1px" }}>142</div>
+                      <div style={{ fontSize: 22, fontWeight: 900, color: "#22c55e", letterSpacing: "-1px" }}>
+                        <CountUp to={142} duration={2000} />
+                      </div>
                       <div style={{ fontSize: 11, color: TEXT.secondary, marginTop: 1 }}>Tickets sold</div>
                     </div>
                     <div style={{ textAlign: "right" }}>
-                      <div style={{ fontSize: 22, fontWeight: 900, letterSpacing: "-1px" }}>$2,840</div>
+                      <div style={{ fontSize: 22, fontWeight: 900, letterSpacing: "-1px" }}>
+                        <CountUp to={2840} prefix="$" duration={2200} />
+                      </div>
                       <div style={{ fontSize: 11, color: TEXT.secondary, marginTop: 1 }}>Revenue earned</div>
                     </div>
                   </div>
@@ -556,7 +603,7 @@ export default function Home() {
               ZERO PLATFORM TAX
             </div>
             <div style={{ fontSize: "clamp(5rem,20vw,10rem)", fontWeight: 900, lineHeight: 0.9, letterSpacing: "-6px", background: "linear-gradient(135deg, #e9d5ff 0%, #c084fc 40%, #a855f7 70%, #7c3aed 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", marginBottom: SP.md }}>
-              100%
+              <CountUp to={100} suffix="%" duration={2000} />
             </div>
             <h2 style={{ fontSize: "clamp(1.3rem,3vw,1.8rem)", fontWeight: 800, letterSpacing: "-0.8px", marginBottom: SP.sm, lineHeight: 1.3 }}>
               Every ticket dollar goes<br />straight to your org.
@@ -606,6 +653,27 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── SOCIAL PROOF MARQUEE ── */}
+      <div style={{ background: "rgba(4,1,18,0.95)", borderTop: "1px solid rgba(255,255,255,0.05)", borderBottom: "1px solid rgba(255,255,255,0.05)", overflow: "hidden", padding: "14px 0" }}>
+        <div style={{ display: "flex", width: "max-content", animation: "marqueeScroll 28s linear infinite" }}>
+          {[...Array(2)].map((_, rep) => (
+            <div key={rep} style={{ display: "flex", alignItems: "center", gap: 0 }}>
+              {[
+                "Chi Phi", "Delta Gamma", "Sigma Chi", "Kappa Alpha Theta", "Pi Kappa Alpha",
+                "Tri Delta", "Phi Kappa Psi", "Alpha Chi Omega", "Beta Theta Pi", "Kappa Kappa Gamma",
+                "Lambda Chi Alpha", "Zeta Tau Alpha", "Phi Delta Theta", "Delta Delta Delta",
+                "Sigma Nu", "Alpha Phi", "Kappa Alpha Order", "Chi Omega",
+              ].map((name, i) => (
+                <span key={i} style={{ display: "inline-flex", alignItems: "center", gap: 0, whiteSpace: "nowrap" }}>
+                  <span style={{ fontSize: 13, fontWeight: 500, color: "rgba(255,255,255,0.3)", letterSpacing: "0.04em", padding: "0 20px" }}>{name}</span>
+                  <span style={{ color: "rgba(168,85,247,0.35)", fontSize: 10 }}>·</span>
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* ── HOW IT WORKS ── */}
       <section id="app" style={{ borderTop: "1px solid rgba(255,255,255,0.04)" }}>
         <div data-sr className="max-w-5xl mx-auto px-5 text-center" style={{ paddingTop: SP.section, paddingBottom: SP.section }}>
@@ -619,19 +687,29 @@ export default function Home() {
           <p style={{ color: TEXT.secondary, fontSize: 16, maxWidth: 480, margin: `0 auto ${SP.xxl}px`, lineHeight: 1.7 }}>Whether you're a student finding events or an org managing hundreds of members — you're set up in minutes.</p>
 
           <div className="flex flex-col lg:flex-row" style={{ gap: 16 }}>
+            {/* Students — cool blue-purple accent */}
             {[
               {
                 label: "For Students", emoji: "🎓",
-                color: "#a855f7", glow: "rgba(168,85,247,0.15)",
+                color: "#818cf8",
+                colorAlt: "#6366f1",
+                glow: "rgba(99,102,241,0.18)",
+                glowBorder: "rgba(99,102,241,0.22)",
+                boxGlow: "rgba(99,102,241,0.15)",
                 steps: [
                   { n: "01", title: "Download the beta", sub: "Get Gated on iOS via TestFlight in under a minute." },
                   { n: "02", title: "Discover events", sub: "Browse the feed or explore the interactive campus map." },
                   { n: "03", title: "Buy & show up", sub: "Secure checkout, digital QR ticket. Just scan at the door." },
                 ],
               },
+              /* Organizations — warm gold-purple accent */
               {
                 label: "For Organizations", emoji: "🏛️",
-                color: "#7c3aed", glow: "rgba(124,58,237,0.18)",
+                color: "#f59e0b",
+                colorAlt: "#d97706",
+                glow: "rgba(245,158,11,0.16)",
+                glowBorder: "rgba(245,158,11,0.22)",
+                boxGlow: "rgba(217,119,6,0.14)",
                 steps: [
                   { n: "01", title: "Create your profile", sub: "Set up your chapter or org in minutes with branding and links." },
                   { n: "02", title: "Post events & prices", sub: "Set capacity, pricing tiers, publish. Followers notified instantly." },
@@ -639,19 +717,19 @@ export default function Home() {
                 ],
               },
             ].map((col) => (
-              <div key={col.label} style={{ flex: 1, background: "rgba(255,255,255,0.035)", borderRadius: 24, padding: 28, border: "1px solid rgba(255,255,255,0.07)", backdropFilter: "blur(20px)", textAlign: "left", boxShadow: `0 0 60px ${col.glow}` }}>
+              <div key={col.label} style={{ flex: 1, background: "rgba(255,255,255,0.035)", borderRadius: 24, padding: 28, border: `1px solid ${col.glowBorder}`, backdropFilter: "blur(20px)", textAlign: "left", boxShadow: `0 0 60px ${col.boxGlow}` }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 28 }}>
-                  <div style={{ width: 44, height: 44, borderRadius: 14, background: `${col.glow.replace("0.15","0.2").replace("0.18","0.22")}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22 }}>{col.emoji}</div>
+                  <div style={{ width: 44, height: 44, borderRadius: 14, background: `${col.glow}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 22, border: `1px solid ${col.glowBorder}` }}>{col.emoji}</div>
                   <div style={{ fontWeight: 800, fontSize: 17, letterSpacing: "-0.3px" }}>{col.label}</div>
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
                   {col.steps.map((s, si) => (
                     <div key={s.n} style={{ display: "flex", gap: 16, paddingBottom: si < 2 ? 20 : 0, position: "relative" }}>
                       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0 }}>
-                        <div style={{ width: 32, height: 32, borderRadius: "50%", background: `linear-gradient(135deg,${col.color}40,${col.color}20)`, border: `1.5px solid ${col.color}60`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 800, color: col.color, flexShrink: 0 }}>{s.n}</div>
-                        {si < 2 && <div style={{ width: 1.5, flex: 1, background: `linear-gradient(180deg,${col.color}40,transparent)`, minHeight: 16, marginTop: 4 }} />}
+                        <div style={{ width: 32, height: 32, borderRadius: "50%", background: `${col.glow}`, border: `1.5px solid ${col.color}60`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 800, color: col.color, flexShrink: 0 }}>{s.n}</div>
+                        {si < 2 && <div style={{ width: 1.5, flex: 1, background: `linear-gradient(180deg,${col.color}50,transparent)`, minHeight: 16, marginTop: 4 }} />}
                       </div>
-                      <div style={{ paddingTop: 6, paddingBottom: si < 2 ? 0 : 0 }}>
+                      <div style={{ paddingTop: 6 }}>
                         <div style={{ fontWeight: 700, fontSize: 15, marginBottom: 4, letterSpacing: "-0.2px" }}>{s.title}</div>
                         <div style={{ color: TEXT.secondary, fontSize: 13.5, lineHeight: 1.65 }}>{s.sub}</div>
                       </div>
@@ -735,7 +813,7 @@ export default function Home() {
             <p style={{ color: TEXT.secondary, fontSize: 16, lineHeight: 1.8, maxWidth: 400, margin: `0 auto ${SP.xl}px` }}>
               Join students already discovering events, connecting with orgs, and never missing a moment on campus.
             </p>
-            <a href="https://testflight.apple.com/join/mf7CCamE" target="_blank" rel="noopener noreferrer"
+            <a href="https://testflight.apple.com/join/v7XxS6fu" target="_blank" rel="noopener noreferrer"
               style={{ display: "inline-flex", alignItems: "center", gap: 14, background: "#fff", color: "#000", padding: "16px 32px", borderRadius: R.pill, fontSize: 15, fontWeight: 700, textDecoration: "none", boxShadow: "0 8px 40px rgba(255,255,255,0.15), 0 4px 16px rgba(0,0,0,0.3)", transition: "transform 0.2s, box-shadow 0.2s" }}
               onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = "scale(1.04) translateY(-2px)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 16px 60px rgba(255,255,255,0.22), 0 8px 30px rgba(0,0,0,0.4)"; }}
               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = "scale(1) translateY(0)"; (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 40px rgba(255,255,255,0.15), 0 4px 16px rgba(0,0,0,0.3)"; }}
@@ -779,7 +857,7 @@ export default function Home() {
             </div>
           </div>
           <div style={{ borderTop: "1px solid rgba(255,255,255,0.05)", marginTop: SP.lg, paddingTop: SP.md, textAlign: "center" }}>
-            <p style={{ color: TEXT.tertiary, fontSize: 12, margin: 0 }}>© 2025 The Greek Life Corp. All rights reserved.</p>
+            <p style={{ color: TEXT.tertiary, fontSize: 12, margin: 0 }}>© 2025 The Greak Life Corp. All rights reserved.</p>
           </div>
         </div>
       </footer>
@@ -787,4 +865,3 @@ export default function Home() {
     </div>
   );
 }
-
