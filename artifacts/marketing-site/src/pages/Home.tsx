@@ -1597,7 +1597,7 @@ export default function Home() {
               @thegatedapp
             </a>
             <a
-              href="https://www.tiktok.com/@gatedapp"
+              href="https://www.tiktok.com/@thegatedapp"
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-full px-5 py-3 inline-flex items-center gap-2 text-[14px]"
@@ -1609,7 +1609,7 @@ export default function Home() {
               }}
             >
               <TikTokLogo size={14} />
-              @gatedapp
+              @thegatedapp
             </a>
           </div>
 
@@ -1771,7 +1771,7 @@ export default function Home() {
                 <InstagramLogo size={16} />
               </a>
               <a
-                href="https://www.tiktok.com/@gatedapp"
+                href="https://www.tiktok.com/@thegatedapp"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 rounded-[10px] grid place-items-center"
