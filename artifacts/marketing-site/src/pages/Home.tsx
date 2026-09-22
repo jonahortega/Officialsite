@@ -315,13 +315,16 @@ function IPhoneMockup() {
                   <img
                     src={s.src}
                     alt={s.label}
+                    decoding="async"
                     style={{
                       width: "100%",
                       height: "100%",
-                      objectFit: "contain",
-                      objectPosition: "center",
+                      objectFit: "cover",
+                      objectPosition: "top center",
                       pointerEvents: "none",
                       userSelect: "none",
+                      WebkitBackfaceVisibility: "hidden",
+                      transform: "translateZ(0)",
                     }}
                     draggable={false}
                   />
@@ -939,14 +942,19 @@ export default function Home() {
               </div>
 
               <div
-                className="mt-8 md:mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-[11px] tracking-[0.14em] uppercase"
-                style={{ color: C.tertiary, animation: "gatedFadeUp .75s ease .52s both" }}
+                className="mt-6 md:mt-10 flex flex-nowrap items-center gap-x-2 sm:gap-x-3 overflow-x-auto max-w-full text-[9px] sm:text-[10px] md:text-[11px] tracking-[0.06em] sm:tracking-[0.1em] md:tracking-[0.14em] uppercase whitespace-nowrap"
+                style={{
+                  color: C.tertiary,
+                  animation: "gatedFadeUp .75s ease .52s both",
+                  WebkitOverflowScrolling: "touch",
+                  scrollbarWidth: "none",
+                }}
               >
                 <span>100% revenue to orgs</span>
-                <span className="w-px h-3" style={{ background: "rgba(255,255,255,0.2)" }} />
-                <span>$0 platform fees · ever</span>
-                <span className="w-px h-3" style={{ background: "rgba(255,255,255,0.2)" }} />
-                <span>iOS beta live now</span>
+                <span aria-hidden style={{ opacity: 0.45 }}>·</span>
+                <span>$0 platform fees</span>
+                <span aria-hidden style={{ opacity: 0.45 }}>·</span>
+                <span>iOS beta</span>
               </div>
             </div>
 
