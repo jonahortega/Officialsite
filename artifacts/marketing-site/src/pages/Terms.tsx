@@ -5,17 +5,17 @@ const EFFECTIVE = "April 30, 2026";
 const LAST_UPDATED = "April 30, 2026";
 
 const C = {
-  bg: "linear-gradient(135deg, #0f0522 0%, #1a0a3e 50%, #0f0522 100%)",
+  bg: "linear-gradient(180deg, #0c0428 0%, #150840 40%, #0c0428 100%)",
   text: "rgba(220,210,255,0.9)",
   muted: "rgba(167,139,250,0.7)",
-  accent: "rgba(167,139,250,0.9)",
+  accent: "#a855f7",
   white: "white",
   subtle: "rgba(220,210,255,0.85)",
 };
 
 export default function Terms() {
   return (
-    <div style={{ minHeight: "100vh", background: C.bg, color: C.text, fontFamily: "'Inter', sans-serif" }}>
+    <div style={{ minHeight: "100vh", background: C.bg, color: C.text, fontFamily: "'Space Grotesk', system-ui, sans-serif" }}>
       <div style={{ maxWidth: 760, margin: "0 auto", padding: "60px 24px 80px" }}>
 
         <Link href="/" style={{ display: "inline-flex", alignItems: "center", gap: 6, color: C.accent, fontSize: 14, textDecoration: "none", marginBottom: 40 }}>
@@ -24,10 +24,10 @@ export default function Terms() {
 
         <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
           <div style={{ width: 36, height: 36, borderRadius: 10, background: "linear-gradient(135deg,#7c3aed,#a855f7)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18 }}>⚖️</div>
-          <span style={{ fontSize: 13, color: C.muted, fontWeight: 500, letterSpacing: "0.06em", textTransform: "uppercase" }}>The Greak Life Corp</span>
+          <span style={{ fontSize: 12, color: C.muted, fontWeight: 500, letterSpacing: "0.12em", textTransform: "uppercase" }}>The Greak Life Corp</span>
         </div>
 
-        <h1 style={{ fontSize: "clamp(28px,5vw,42px)", fontWeight: 800, color: C.white, marginBottom: 8, lineHeight: 1.15 }}>Terms of Service</h1>
+        <h1 style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: "clamp(32px,5.5vw,48px)", fontWeight: 400, color: C.white, marginBottom: 8, lineHeight: 1.05, letterSpacing: "-0.02em" }}>Terms of Service</h1>
         <div style={{ fontSize: 14, color: C.muted, marginBottom: 8 }}>
           <span><strong style={{ color: C.white }}>Effective Date:</strong> {EFFECTIVE}</span>
           <span style={{ margin: "0 12px", opacity: 0.4 }}>|</span>

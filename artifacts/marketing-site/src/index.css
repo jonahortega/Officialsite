@@ -71,9 +71,21 @@
   --ring: 260 100% 65%;
   --radius: 0.75rem;
 
-  --app-font-sans: 'Inter', system-ui, sans-serif;
-  --app-font-serif: Georgia, serif;
-  --app-font-mono: Menlo, monospace;
+  --app-font-sans: 'Space Grotesk', system-ui, sans-serif;
+  --app-font-serif: 'Instrument Serif', Georgia, serif;
+  --app-font-mono: 'JetBrains Mono', Menlo, monospace;
+
+  /* Gated marketing tokens (Clean Contrast layout + existing purple scheme) */
+  --gated-ink: #0c0428;
+  --gated-deep: #150840;
+  --gated-mid: #2a1568;
+  --gated-violet: #7c3aed;
+  --gated-accent: #a855f7;
+  --gated-accent-soft: #c084fc;
+  --gated-mute: rgba(255, 255, 255, 0.45);
+  --gated-tertiary: rgba(255, 255, 255, 0.28);
+  --gated-hair: rgba(255, 255, 255, 0.1);
+  --gated-card: rgba(255, 255, 255, 0.045);
 }
 
 .dark {
