@@ -49,9 +49,9 @@ export function IPhoneMockup({
       const isCompact = vw < 768;
       setCompact(isCompact);
       if (isCompact) {
-        const maxW = Math.min(vw - 48, 250);
-        // topbar + bottom nav/footer + label/dots under phone
-        const maxH = Math.max(280, vh - 200);
+        const maxW = Math.min(vw - 88, 200);
+        // topbar + footer/counter + label/dots under phone
+        const maxH = Math.max(250, vh - 220);
         setPhoneScale(Math.min(maxScale, maxW / PHONE_W, maxH / PHONE_H));
         return;
       }

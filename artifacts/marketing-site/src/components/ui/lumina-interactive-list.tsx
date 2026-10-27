@@ -36,6 +36,13 @@ export function LuminaInteractiveList({ slides }: Props) {
     let onVisibility: (() => void) | null = null;
     let onResize: (() => void) | null = null;
     let onPhoneInteract: ((e: Event) => void) | null = null;
+    let onWheel: ((e: WheelEvent) => void) | null = null;
+    let onKeyDown: ((e: KeyboardEvent) => void) | null = null;
+    let onTouchStart: ((e: TouchEvent) => void) | null = null;
+    let onTouchEnd: ((e: TouchEvent) => void) | null = null;
+    let touchStartY = 0;
+    let touchStartX = 0;
+    let touchNavEnabled = false;
 
     const loadScripts = async () => {
       const loadScript = (src: string, globalName: string) =>
@@ -86,8 +93,8 @@ export function LuminaInteractiveList({ slides }: Props) {
     const initApplication = async () => {
       const SLIDER_CONFIG: any = {
         settings: {
-          transitionDuration: 2.5,
-          autoSlideSpeed: 6500,
+          transitionDuration: 1.2,
+          autoSlideSpeed: 8000,
           currentEffect: "glass",
           currentEffectPreset: "Default",
           globalIntensity: 1.0,
@@ -124,6 +131,12 @@ export function LuminaInteractiveList({ slides }: Props) {
 
       let currentSlideIndex = 0;
       let isTransitioning = false;
+      let pendingSlideIndex: number | null = null;
+      let activeTransition: any = null;
+      let scrollGestureActive = false;
+      let scrollAccum = 0;
+      let scrollSettleTimer: ReturnType<typeof setTimeout> | null = null;
+      let scrollUnlockTimer: ReturnType<typeof setTimeout> | null = null;
       let shaderMaterial: any;
       let scene: any;
       let camera: any;
@@ -245,90 +258,50 @@ export function LuminaInteractiveList({ slides }: Props) {
         const descEl = document.getElementById("mainDesc");
         if (!titleEl || !descEl) return;
 
-        gsap.to(titleEl.children, {
-          y: -20,
-          opacity: 0,
-          duration: 0.5,
-          stagger: 0.02,
-          ease: "power2.in",
-        });
-        gsap.to(descEl, {
-          y: -10,
-          opacity: 0,
-          duration: 0.4,
-          ease: "power2.in",
-        });
+        gsap.killTweensOf([titleEl, descEl, ...Array.from(titleEl.children)]);
 
-        setTimeout(() => {
+        const swap = () => {
           if (disposed) return;
           titleEl.innerHTML = splitText(slides[idx].title);
           descEl.textContent = slides[idx].description;
           renderSlideLinks(idx);
+          gsap.fromTo(
+            titleEl.children,
+            { y: 14, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.55,
+              stagger: 0.018,
+              ease: "power2.out",
+            },
+          );
+          gsap.fromTo(
+            descEl,
+            { y: 10, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.5, delay: 0.08, ease: "power2.out" },
+          );
+        };
 
-          gsap.set(titleEl.children, { opacity: 0 });
-          gsap.set(descEl, { y: 20, opacity: 0 });
+        if (!titleEl.children.length) {
+          swap();
+          return;
+        }
 
-          const children = titleEl.children;
-          switch (idx) {
-            case 0:
-              gsap.set(children, { y: 20 });
-              gsap.to(children, {
-                y: 0,
-                opacity: 1,
-                duration: 0.8,
-                stagger: 0.03,
-                ease: "power3.out",
-              });
-              break;
-            case 1:
-              gsap.set(children, { y: -20 });
-              gsap.to(children, {
-                y: 0,
-                opacity: 1,
-                duration: 0.8,
-                stagger: 0.03,
-                ease: "back.out(1.7)",
-              });
-              break;
-            case 2:
-              gsap.set(children, { filter: "blur(10px)", scale: 1.5, y: 0 });
-              gsap.to(children, {
-                filter: "blur(0px)",
-                scale: 1,
-                opacity: 1,
-                duration: 1,
-                stagger: { amount: 0.5, from: "random" },
-                ease: "power2.out",
-              });
-              break;
-            case 3:
-              gsap.set(children, { scale: 0, y: 0 });
-              gsap.to(children, {
-                scale: 1,
-                opacity: 1,
-                duration: 0.6,
-                stagger: 0.05,
-                ease: "back.out(1.5)",
-              });
-              break;
-            default:
-              gsap.set(children, { y: 20 });
-              gsap.to(children, {
-                y: 0,
-                opacity: 1,
-                duration: 0.8,
-                stagger: 0.03,
-                ease: "power3.out",
-              });
-          }
-          gsap.to(descEl, {
-            y: 0,
-            opacity: 1,
-            duration: 0.8,
-            delay: 0.2,
-            ease: "power3.out",
-          });
-        }, 500);
+        gsap.to(titleEl.children, {
+          y: -10,
+          opacity: 0,
+          duration: 0.22,
+          stagger: 0.01,
+          ease: "power2.in",
+        });
+        gsap.to(descEl, {
+          y: -6,
+          opacity: 0,
+          duration: 0.2,
+          ease: "power2.in",
+          onComplete: swap,
+        });
       };
 
       const updateNavigationState = (idx: number) =>
@@ -336,39 +309,33 @@ export function LuminaInteractiveList({ slides }: Props) {
           .querySelectorAll(".slide-nav-item")
           .forEach((el, i) => el.classList.toggle("active", i === idx));
 
-      const updateSlideProgress = (idx: number, prog: number) => {
-        const el = document
-          .querySelectorAll(".slide-nav-item")
-          [idx]?.querySelector(".slide-progress-fill") as HTMLElement;
-        if (el) {
-          el.style.width = `${prog}%`;
-          el.style.opacity = "1";
-        }
-      };
+      const updateSlideProgress = (_idx: number, _prog: number) => {};
+      const fadeSlideProgress = (_idx: number) => {};
+      const quickResetProgress = (_idx: number) => {};
 
-      const fadeSlideProgress = (idx: number) => {
-        const el = document
-          .querySelectorAll(".slide-nav-item")
-          [idx]?.querySelector(".slide-progress-fill") as HTMLElement;
-        if (el) {
-          el.style.opacity = "0";
-          setTimeout(() => {
-            el.style.width = "0%";
-          }, 300);
-        }
-      };
-
-      const quickResetProgress = (idx: number) => {
-        const el = document
-          .querySelectorAll(".slide-nav-item")
-          [idx]?.querySelector(".slide-progress-fill") as HTMLElement;
-        if (el) {
-          el.style.transition = "width 0.2s ease-out";
-          el.style.width = "0%";
-          setTimeout(() => {
-            el.style.transition = "width 0.1s ease, opacity 0.3s ease";
-          }, 200);
-        }
+      const createSlidesNavigation = () => {
+        const nav = document.getElementById("slidesNav");
+        if (!nav) return;
+        nav.innerHTML = "";
+        slides.forEach((slide, i) => {
+          const item = document.createElement("button");
+          item.type = "button";
+          item.className = `slide-nav-item${i === 0 ? " active" : ""}`;
+          item.dataset.slideIndex = String(i);
+          item.setAttribute(
+            "aria-label",
+            `Go to ${slide.navLabel ?? slide.title}`,
+          );
+          const label = slide.navLabel ?? slide.title;
+          item.innerHTML = `<span class="slide-nav-title">${label}</span>`;
+          item.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            stopAutoSlideTimer();
+            navigateToSlide(i);
+          });
+          nav.appendChild(item);
+        });
       };
 
       const updateCounter = (idx: number) => {
@@ -417,36 +384,47 @@ export function LuminaInteractiveList({ slides }: Props) {
       };
 
       const navigateToSlide = (targetIndex: number) => {
-        if (isTransitioning || targetIndex === currentSlideIndex) return;
-        stopAutoSlideTimer();
-        quickResetProgress(currentSlideIndex);
+        if (!texturesLoaded || !shaderMaterial) return;
+        const next =
+          ((targetIndex % slides.length) + slides.length) % slides.length;
+        if (next === currentSlideIndex && !isTransitioning) return;
+
+        if (isTransitioning) {
+          pendingSlideIndex = next;
+          return;
+        }
 
         const currentTexture = slideTextures[currentSlideIndex];
-        const targetTexture = slideTextures[targetIndex];
+        const targetTexture = slideTextures[next];
         if (!currentTexture || !targetTexture) return;
 
+        stopAutoSlideTimer();
+        quickResetProgress(currentSlideIndex);
+        pendingSlideIndex = null;
         isTransitioning = true;
+
         shaderMaterial.uniforms.uTexture1.value = currentTexture;
         shaderMaterial.uniforms.uTexture2.value = targetTexture;
         shaderMaterial.uniforms.uTexture1Size.value =
           currentTexture.userData.size;
         shaderMaterial.uniforms.uTexture2Size.value =
           targetTexture.userData.size;
+        shaderMaterial.uniforms.uProgress.value = 0;
 
-        updateContent(targetIndex);
-
-        currentSlideIndex = targetIndex;
+        updateContent(next);
+        currentSlideIndex = next;
         setActiveSlide(currentSlideIndex);
         updateCounter(currentSlideIndex);
         updateNavigationState(currentSlideIndex);
 
-        gsap.fromTo(
+        if (activeTransition) activeTransition.kill();
+        activeTransition = gsap.fromTo(
           shaderMaterial.uniforms.uProgress,
           { value: 0 },
           {
             value: 1,
             duration: TRANSITION_DURATION(),
-            ease: "power2.inOut",
+            ease: "power3.inOut",
             onComplete: () => {
               if (disposed) return;
               shaderMaterial.uniforms.uProgress.value = 0;
@@ -454,37 +432,45 @@ export function LuminaInteractiveList({ slides }: Props) {
               shaderMaterial.uniforms.uTexture1Size.value =
                 targetTexture.userData.size;
               isTransitioning = false;
-              safeStartTimer(100);
+              activeTransition = null;
+              if (
+                pendingSlideIndex !== null &&
+                pendingSlideIndex !== currentSlideIndex
+              ) {
+                const queued = pendingSlideIndex;
+                pendingSlideIndex = null;
+                navigateToSlide(queued);
+                return;
+              }
+              pendingSlideIndex = null;
+              // Let trackpad inertia settle before accepting another scroll
+              if (scrollUnlockTimer) clearTimeout(scrollUnlockTimer);
+              scrollUnlockTimer = setTimeout(() => {
+                scrollGestureActive = false;
+                scrollAccum = 0;
+              }, 320);
+              safeStartTimer(220);
             },
           },
         );
       };
 
       const handleSlideChange = () => {
-        if (isTransitioning || !texturesLoaded || !sliderEnabled) return;
-        navigateToSlide((currentSlideIndex + 1) % slides.length);
+        if (!texturesLoaded || !sliderEnabled) return;
+        navigateToSlide(currentSlideIndex + 1);
       };
 
-      const createSlidesNavigation = () => {
-        const nav = document.getElementById("slidesNav");
-        if (!nav) return;
-        nav.innerHTML = "";
-        slides.forEach((slide, i) => {
-          const item = document.createElement("div");
-          item.className = `slide-nav-item${i === 0 ? " active" : ""}`;
-          item.dataset.slideIndex = String(i);
-          const label = slide.navLabel ?? slide.title;
-          item.innerHTML = `<div class="slide-nav-title">${label}</div>`;
-          item.addEventListener("click", (e) => {
-            e.stopPropagation();
-            if (!isTransitioning && i !== currentSlideIndex) {
-              stopAutoSlideTimer();
-              quickResetProgress(currentSlideIndex);
-              navigateToSlide(i);
-            }
-          });
-          nav.appendChild(item);
-        });
+      const stepSlide = (dir: 1 | -1) => {
+        if (!texturesLoaded || !sliderEnabled) return;
+        navigateToSlide(currentSlideIndex + dir);
+      };
+
+      const normalizeWheelDelta = (e: WheelEvent) => {
+        let dy = e.deltaY;
+        if (e.deltaMode === 1) dy *= 16;
+        if (e.deltaMode === 2) dy *= window.innerHeight;
+        // Cap huge trackpad bursts so one flick = one page
+        return Math.max(-120, Math.min(120, dy));
       };
 
       const loadImageTexture = (src: string) =>
@@ -656,6 +642,90 @@ export function LuminaInteractiveList({ slides }: Props) {
         else if (!isTransitioning && !document.hidden) safeStartTimer(800);
       };
       window.addEventListener("lumina-phone-interact", onPhoneInteract);
+
+      onWheel = (e: WheelEvent) => {
+        if (!texturesLoaded || !sliderEnabled) return;
+        const target = e.target as Element | null;
+        if (target?.closest?.(".lumina-phone-stage")) return;
+        e.preventDefault();
+        stopAutoSlideTimer();
+
+        const dy = normalizeWheelDelta(e);
+        if (Math.abs(dy) < 1) return;
+
+        // Mid-transition: remember latest intent, don't fight the current tween
+        if (isTransitioning || scrollGestureActive) {
+          if (Math.abs(dy) > 8) {
+            pendingSlideIndex = currentSlideIndex + (dy > 0 ? 1 : -1);
+          }
+          if (scrollSettleTimer) clearTimeout(scrollSettleTimer);
+          scrollSettleTimer = setTimeout(() => {
+            scrollAccum = 0;
+          }, 180);
+          return;
+        }
+
+        scrollAccum += dy;
+        if (scrollSettleTimer) clearTimeout(scrollSettleTimer);
+        scrollSettleTimer = setTimeout(() => {
+          scrollAccum = 0;
+        }, 180);
+
+        const threshold = 42;
+        if (Math.abs(scrollAccum) < threshold) return;
+
+        const dir: 1 | -1 = scrollAccum > 0 ? 1 : -1;
+        scrollAccum = 0;
+        scrollGestureActive = true;
+        stepSlide(dir);
+        if (!isTransitioning) scrollGestureActive = false;
+      };
+      window.addEventListener("wheel", onWheel, { passive: false });
+
+      onKeyDown = (e: KeyboardEvent) => {
+        if (!texturesLoaded || !sliderEnabled) return;
+        if (e.key === "ArrowDown" || e.key === "ArrowRight" || e.key === "PageDown") {
+          e.preventDefault();
+          if (scrollGestureActive || isTransitioning) return;
+          scrollGestureActive = true;
+          stepSlide(1);
+        } else if (
+          e.key === "ArrowUp" ||
+          e.key === "ArrowLeft" ||
+          e.key === "PageUp"
+        ) {
+          e.preventDefault();
+          if (scrollGestureActive || isTransitioning) return;
+          scrollGestureActive = true;
+          stepSlide(-1);
+        }
+      };
+      window.addEventListener("keydown", onKeyDown);
+
+      onTouchStart = (e: TouchEvent) => {
+        const target = e.target as Element | null;
+        touchNavEnabled = !(
+          target?.closest?.(".lumina-phone-stage") ||
+          target?.closest?.(".lumina-topbar") ||
+          target?.closest?.(".lumina-footer")
+        );
+        const t = e.changedTouches[0];
+        if (!t) return;
+        touchStartY = t.clientY;
+        touchStartX = t.clientX;
+      };
+      onTouchEnd = (e: TouchEvent) => {
+        if (!touchNavEnabled || scrollGestureActive || isTransitioning) return;
+        const t = e.changedTouches[0];
+        if (!t) return;
+        const dy = t.clientY - touchStartY;
+        const dx = t.clientX - touchStartX;
+        if (Math.abs(dy) < 48 || Math.abs(dy) < Math.abs(dx) * 1.15) return;
+        scrollGestureActive = true;
+        stepSlide(dy < 0 ? 1 : -1);
+      };
+      window.addEventListener("touchstart", onTouchStart, { passive: true });
+      window.addEventListener("touchend", onTouchEnd, { passive: true });
     };
 
     loadScripts();
@@ -664,12 +734,19 @@ export function LuminaInteractiveList({ slides }: Props) {
       disposed = true;
       if (progressAnimation) clearInterval(progressAnimation);
       if (autoSlideTimer) clearTimeout(autoSlideTimer);
+      if (scrollSettleTimer) clearTimeout(scrollSettleTimer);
+      if (scrollUnlockTimer) clearTimeout(scrollUnlockTimer);
       if (rafId) cancelAnimationFrame(rafId);
       if (onVisibility)
         document.removeEventListener("visibilitychange", onVisibility);
       if (onResize) window.removeEventListener("resize", onResize);
       if (onPhoneInteract)
         window.removeEventListener("lumina-phone-interact", onPhoneInteract);
+      if (onWheel) window.removeEventListener("wheel", onWheel);
+      if (onKeyDown) window.removeEventListener("keydown", onKeyDown);
+      if (onTouchStart)
+        window.removeEventListener("touchstart", onTouchStart);
+      if (onTouchEnd) window.removeEventListener("touchend", onTouchEnd);
       try {
         renderer?.dispose?.();
       } catch {
@@ -730,7 +807,7 @@ export function LuminaInteractiveList({ slides }: Props) {
         <IPhoneMockup maxScale={0.92} skipIntro active={showPhone} />
       </div>
 
-      <nav className="slides-navigation" id="slidesNav" />
+      <nav className="slides-navigation" id="slidesNav" aria-label="Sections" />
 
       <footer className="lumina-footer">
         <a href="/terms">Terms</a>
