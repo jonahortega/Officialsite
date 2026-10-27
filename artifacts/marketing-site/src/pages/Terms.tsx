@@ -1,47 +1,39 @@
 import { Link } from "wouter";
+import {
+  LegalLayout,
+  LegalSection as Section,
+  LegalSubSection as SubSection,
+  LEGAL as C,
+} from "@/components/LegalLayout";
 
 const SUPPORT = "support@gated.us";
 const EFFECTIVE = "April 30, 2026";
 const LAST_UPDATED = "April 30, 2026";
 
-const C = {
-  bg: "linear-gradient(180deg, #0c0428 0%, #150840 40%, #0c0428 100%)",
-  text: "rgba(220,210,255,0.9)",
-  muted: "rgba(167,139,250,0.7)",
-  accent: "#a855f7",
-  white: "white",
-  subtle: "rgba(220,210,255,0.85)",
-};
-
 export default function Terms() {
   return (
-    <div style={{ minHeight: "100vh", background: C.bg, color: C.text, fontFamily: "'Space Grotesk', system-ui, sans-serif" }}>
-      <div style={{ maxWidth: 760, margin: "0 auto", padding: "60px 24px 80px" }}>
-
-        <Link href="/" style={{ display: "inline-flex", alignItems: "center", gap: 6, color: C.accent, fontSize: 14, textDecoration: "none", marginBottom: 40 }}>
-          ← Back to home
-        </Link>
-
-        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
-          <div style={{ width: 36, height: 36, borderRadius: 10, background: "linear-gradient(135deg,#7c3aed,#a855f7)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18 }}>⚖️</div>
-          <span style={{ fontSize: 12, color: C.muted, fontWeight: 500, letterSpacing: "0.12em", textTransform: "uppercase" }}>The Greak Life Corp</span>
-        </div>
-
-        <h1 style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: "clamp(32px,5.5vw,48px)", fontWeight: 400, color: C.white, marginBottom: 8, lineHeight: 1.05, letterSpacing: "-0.02em" }}>Terms of Service</h1>
-        <div style={{ fontSize: 14, color: C.muted, marginBottom: 8 }}>
-          <span><strong style={{ color: C.white }}>Effective Date:</strong> {EFFECTIVE}</span>
-          <span style={{ margin: "0 12px", opacity: 0.4 }}>|</span>
-          <span><strong style={{ color: C.white }}>Last Updated:</strong> {LAST_UPDATED}</span>
-        </div>
-        <div style={{ fontSize: 14, color: C.muted, marginBottom: 12 }}>
-          <strong style={{ color: C.white }}>Legal Entity / Operator:</strong> The Greak Life Corp., a Delaware corporation
-        </div>
-        <div style={{ fontSize: 14, color: C.muted, marginBottom: 12 }}>
-          <strong style={{ color: C.white }}>Platform Name:</strong> Gated (the "Gated" mobile application, website, and related services)
-        </div>
-        <div style={{ fontSize: 14, color: C.muted, marginBottom: 48 }}>
-          <strong style={{ color: C.white }}>Contact:</strong> <a href={`mailto:${SUPPORT}`} style={{ color: C.accent }}>{SUPPORT}</a>
-        </div>
+    <LegalLayout
+      title="Terms of Service"
+      meta={
+        <>
+          <div style={{ fontSize: 14, color: C.muted, marginBottom: 8 }}>
+            <span><strong style={{ color: C.white }}>Effective Date:</strong> {EFFECTIVE}</span>
+            <span style={{ margin: "0 12px", opacity: 0.4 }}>·</span>
+            <span><strong style={{ color: C.white }}>Last Updated:</strong> {LAST_UPDATED}</span>
+          </div>
+          <div style={{ fontSize: 14, color: C.muted, marginBottom: 8 }}>
+            <strong style={{ color: C.white }}>Legal Entity / Operator:</strong> The Greak Life Corp., a Delaware corporation
+          </div>
+          <div style={{ fontSize: 14, color: C.muted, marginBottom: 8 }}>
+            <strong style={{ color: C.white }}>Platform Name:</strong> Gated (the "Gated" mobile application, website, and related services)
+          </div>
+          <div style={{ fontSize: 14, color: C.muted }}>
+            <strong style={{ color: C.white }}>Contact:</strong>{" "}
+            <a href={`mailto:${SUPPORT}`} style={{ color: C.white }}>{SUPPORT}</a>
+          </div>
+        </>
+      }
+    >
 
         <Section n="1" title="Agreement to These Terms">
           <p style={{ marginBottom: 12 }}>These Terms of Service ("Terms") are a binding agreement between you and The Greak Life Corp. ("Gated," "we," "us," or "our").</p>
@@ -100,7 +92,7 @@ export default function Terms() {
             <p>The Platform may support different account types, including individual user accounts and organization accounts. Organization accounts may include features such as event creation, ticketing, payout setup, team/role management, event insights, QR check-in, and organization profile pages. If you create or manage an organization account, you represent that you have authority to act on behalf of that organization.</p>
           </SubSection>
           <SubSection title="4.3 Account Security">
-            <p>You are responsible for maintaining the confidentiality of your login credentials and for all activity under your account. Notify us promptly at <a href={`mailto:${SUPPORT}`} style={{ color: C.accent }}>{SUPPORT}</a> if you suspect unauthorized access. We may suspend or terminate accounts that appear compromised, fraudulent, or abusive.</p>
+            <p>You are responsible for maintaining the confidentiality of your login credentials and for all activity under your account. Notify us promptly at <a href={`mailto:${SUPPORT}`} style={{ color: C.white }}>{SUPPORT}</a> if you suspect unauthorized access. We may suspend or terminate accounts that appear compromised, fraudulent, or abusive.</p>
           </SubSection>
           <SubSection title="4.4 University Selection">
             <p>During registration, users may select or identify a university or campus community. That selection is used for discovery, filtering, and product functionality. It does not create any relationship between Gated and the selected institution.</p>
@@ -248,7 +240,7 @@ export default function Terms() {
         </Section>
 
         <Section n="11" title="Refunds">
-          <p style={{ marginBottom: 12 }}>Unless required by applicable law, ticket purchases are generally <strong style={{ color: C.white }}>non-refundable</strong>. If an event is cancelled by the organizer, or if Gated removes an event listing due to cancellation or a material violation of these Terms, you may request a refund by emailing <a href={`mailto:${SUPPORT}`} style={{ color: C.accent }}>{SUPPORT}</a> from the email associated with your account or purchase, including the event name and date.</p>
+          <p style={{ marginBottom: 12 }}>Unless required by applicable law, ticket purchases are generally <strong style={{ color: C.white }}>non-refundable</strong>. If an event is cancelled by the organizer, or if Gated removes an event listing due to cancellation or a material violation of these Terms, you may request a refund by emailing <a href={`mailto:${SUPPORT}`} style={{ color: C.white }}>{SUPPORT}</a> from the email associated with your account or purchase, including the event name and date.</p>
           <p>Gated reviews refund requests in its reasonable discretion. Approved refunds are processed to the original payment method and may take several business days to appear. Gated does not guarantee refunds for schedule conflicts, change of mind, no-shows, partial attendance, dissatisfaction with an event, or any reason other than as stated here or as required by law.</p>
         </Section>
 
@@ -270,12 +262,12 @@ export default function Terms() {
         <Section n="13" title="Gated Intellectual Property">
           <p style={{ marginBottom: 12 }}>The Platform software, branding, logos, design, and proprietary materials are owned by or licensed to The Greak Life Corp. and are protected by intellectual property laws. Except for the limited right to use the Platform under these Terms, no rights are granted to you. You may not copy, modify, distribute, sell, or lease any part of the Platform except as allowed by law or with our written permission.</p>
           <SubSection title="13.1 Copyright Complaints (DMCA)">
-            <p>We respect intellectual property rights and respond to notices of alleged copyright infringement consistent with the Digital Millennium Copyright Act (DMCA). If you believe content on the Platform infringes your copyright, send a written notice to our designated DMCA agent at <a href={`mailto:${SUPPORT}`} style={{ color: C.accent }}>{SUPPORT}</a> that includes: (a) your physical or electronic signature; (b) identification of the copyrighted work claimed to be infringed; (c) identification of the allegedly infringing material and information reasonably sufficient to locate it; (d) your contact information; (e) a statement that you have a good-faith belief that the use is not authorized by the copyright owner, its agent, or the law; and (f) a statement, made under penalty of perjury, that the information in your notice is accurate and that you are the copyright owner or authorized to act on the owner's behalf. We may remove or disable access to allegedly infringing material and may terminate the accounts of users who are repeat infringers.</p>
+            <p>We respect intellectual property rights and respond to notices of alleged copyright infringement consistent with the Digital Millennium Copyright Act (DMCA). If you believe content on the Platform infringes your copyright, send a written notice to our designated DMCA agent at <a href={`mailto:${SUPPORT}`} style={{ color: C.white }}>{SUPPORT}</a> that includes: (a) your physical or electronic signature; (b) identification of the copyrighted work claimed to be infringed; (c) identification of the allegedly infringing material and information reasonably sufficient to locate it; (d) your contact information; (e) a statement that you have a good-faith belief that the use is not authorized by the copyright owner, its agent, or the law; and (f) a statement, made under penalty of perjury, that the information in your notice is accurate and that you are the copyright owner or authorized to act on the owner's behalf. We may remove or disable access to allegedly infringing material and may terminate the accounts of users who are repeat infringers.</p>
           </SubSection>
         </Section>
 
         <Section n="14" title="Privacy">
-          <p>Your use of the Platform is also governed by our <Link href="/privacy" style={{ color: C.accent }}>Privacy Policy</Link>, which explains how we collect, use, and share information, including any rights you may have under applicable state privacy laws. By using the Platform, you acknowledge that we may process personal information as described in the Privacy Policy, including through service providers such as Supabase (authentication, database, and storage) and Stripe (payments). Gated does not knowingly act as a school official under FERPA and does not access education records maintained by any educational institution.</p>
+          <p>Your use of the Platform is also governed by our <Link href="/privacy" style={{ color: C.white }}>Privacy Policy</Link>, which explains how we collect, use, and share information, including any rights you may have under applicable state privacy laws. By using the Platform, you acknowledge that we may process personal information as described in the Privacy Policy, including through service providers such as Supabase (authentication, database, and storage) and Stripe (payments). Gated does not knowingly act as a school official under FERPA and does not access education records maintained by any educational institution.</p>
         </Section>
 
         <Section n="15" title="Third-Party Services and Links">
@@ -330,7 +322,7 @@ export default function Terms() {
             <p>Except for (a) individual claims in small-claims court and (b) claims for injunctive or equitable relief to protect intellectual property or address unauthorized access to the Platform, any dispute, claim, or controversy arising out of or relating to these Terms or the Platform shall be resolved by final and binding arbitration administered by the American Arbitration Association (AAA) under its Consumer Arbitration Rules, before a single arbitrator. The Greak Life Corp. will pay all arbitration filing fees, arbitrator compensation, and administrative costs in excess of the amount you would be required to pay to file a complaint in court, unless the arbitrator determines that your claims are frivolous. The arbitration shall be conducted in New Castle County, Delaware, or by remote means, and judgment on the award may be entered in any court of competent jurisdiction. This Section is governed by the Federal Arbitration Act.</p>
           </SubSection>
           <SubSection title="19.5 Class Action Waiver; Opt-Out">
-            <p>You and The Greak Life Corp. agree that each may bring claims against the other only in an individual capacity, and not as a plaintiff or class member in any purported class, collective, consolidated, or representative proceeding. The arbitrator may not consolidate more than one person's claims or preside over any form of class or representative proceeding. You may opt out of this arbitration and class-action waiver provision by sending written notice to <a href={`mailto:${SUPPORT}`} style={{ color: C.accent }}>{SUPPORT}</a> within thirty (30) days of first accepting these Terms; if you opt out, the dispute-resolution, governing-law, and venue provisions in Sections 19.1 through 19.3 will apply.</p>
+            <p>You and The Greak Life Corp. agree that each may bring claims against the other only in an individual capacity, and not as a plaintiff or class member in any purported class, collective, consolidated, or representative proceeding. The arbitrator may not consolidate more than one person's claims or preside over any form of class or representative proceeding. You may opt out of this arbitration and class-action waiver provision by sending written notice to <a href={`mailto:${SUPPORT}`} style={{ color: C.white }}>{SUPPORT}</a> within thirty (30) days of first accepting these Terms; if you opt out, the dispute-resolution, governing-law, and venue provisions in Sections 19.1 through 19.3 will apply.</p>
           </SubSection>
         </Section>
 
@@ -363,14 +355,14 @@ export default function Terms() {
             <p>We are not liable for delays or failures caused by events beyond our reasonable control.</p>
           </SubSection>
           <SubSection title="23.6 Contact">
-            <p>Questions about these Terms: The Greak Life Corp. | Email: <a href={`mailto:${SUPPORT}`} style={{ color: C.accent }}>{SUPPORT}</a></p>
+            <p>Questions about these Terms: The Greak Life Corp. | Email: <a href={`mailto:${SUPPORT}`} style={{ color: C.white }}>{SUPPORT}</a></p>
           </SubSection>
         </Section>
 
         {/* Summary Table */}
         <div style={{ marginBottom: 36 }}>
-          <h2 style={{ color: C.white, fontSize: 17, fontWeight: 700, marginBottom: 16 }}>Appendix A — Summary of Key User-Facing Policies</h2>
-          <div style={{ borderRadius: 14, overflow: "hidden", border: "1px solid rgba(124,58,237,0.25)" }}>
+          <h2 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", color: C.white, fontSize: "1.45rem", fontWeight: 400, marginBottom: 16 }}>Appendix A. Summary of Key User-Facing Policies</h2>
+          <div style={{ borderRadius: 14, overflow: "hidden", border: `1px solid ${C.line}` }}>
             {[
               ["Operator", "The Greak Life Corp. (Delaware corporation), app brand: Gated"],
               ["University relationship", "Not affiliated with or endorsed by any university"],
@@ -383,43 +375,22 @@ export default function Terms() {
               ["Venue", "New Castle County, Delaware"],
               ["Support email", SUPPORT],
             ].map(([label, value], i) => (
-              <div key={i} style={{ display: "flex", borderBottom: i < 9 ? "1px solid rgba(124,58,237,0.15)" : "none", background: i % 2 === 0 ? "rgba(124,58,237,0.06)" : "rgba(0,0,0,0.15)" }}>
+              <div key={i} style={{ display: "flex", borderBottom: i < 9 ? `1px solid ${C.line}` : "none", background: i % 2 === 0 ? C.soft : "transparent" }}>
                 <div style={{ padding: "12px 16px", width: "42%", flexShrink: 0, color: C.muted, fontSize: 13, fontWeight: 600 }}>{label}</div>
                 <div style={{ padding: "12px 16px", fontSize: 13, color: C.subtle, lineHeight: 1.6 }}>
-                  {label === "Support email" ? <a href={`mailto:${value}`} style={{ color: C.accent }}>{value}</a> : value}
+                  {label === "Support email" ? <a href={`mailto:${value}`} style={{ color: C.white }}>{value}</a> : value}
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        <div style={{ marginTop: 56, padding: "24px", borderRadius: 16, background: "rgba(124,58,237,0.12)", border: "1px solid rgba(124,58,237,0.25)", display: "flex", flexDirection: "column", gap: 8 }}>
+        <div style={{ marginTop: 56, padding: "24px", borderRadius: 16, background: C.soft, border: `1px solid ${C.line}`, display: "flex", flexDirection: "column", gap: 8 }}>
           <p style={{ fontSize: 14, color: C.muted, margin: 0 }}>Also see our</p>
           <Link href="/privacy" style={{ color: C.white, fontWeight: 600, fontSize: 15, textDecoration: "none" }}>Privacy Policy →</Link>
         </div>
 
-        <p style={{ marginTop: 40, fontSize: 12, color: "rgba(167,139,250,0.5)" }}>Last updated: {LAST_UPDATED}</p>
-      </div>
-    </div>
-  );
-}
-
-function Section({ n, title, children }: { n: string; title: string; children: React.ReactNode }) {
-  return (
-    <div style={{ marginBottom: 36 }}>
-      <h2 style={{ color: C.white, fontSize: 17, fontWeight: 700, marginBottom: 12 }}>
-        {n}. {title}
-      </h2>
-      <div style={{ lineHeight: 1.75, color: C.subtle, fontSize: 15 }}>{children}</div>
-    </div>
-  );
-}
-
-function SubSection({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div style={{ marginBottom: 16 }}>
-      <h3 style={{ color: "rgba(220,210,255,0.95)", fontSize: 14, fontWeight: 600, marginBottom: 8 }}>{title}</h3>
-      <div style={{ lineHeight: 1.75, color: C.subtle, fontSize: 15 }}>{children}</div>
-    </div>
+        <p style={{ marginTop: 40, fontSize: 12, color: C.muted }}>Last updated: {LAST_UPDATED}</p>
+    </LegalLayout>
   );
 }

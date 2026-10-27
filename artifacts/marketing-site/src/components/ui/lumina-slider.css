@@ -1,0 +1,395 @@
+/* Lumina Interactive List — full-viewport glass slider */
+
+.slider-wrapper {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: #0a0a0a;
+  color: var(--color-text, #fff);
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  font-family: var(--font-sans, "Space Grotesk", system-ui, sans-serif);
+}
+
+.slider-wrapper.loaded {
+  opacity: 1;
+}
+
+.webgl-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+}
+
+.lumina-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, transparent 28%, transparent 55%, rgba(0, 0, 0, 0.72) 100%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.35) 0%, transparent 40%, transparent 70%, rgba(0, 0, 0, 0.25) 100%);
+}
+
+.lumina-topbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  pointer-events: none;
+}
+
+.lumina-brand {
+  font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  pointer-events: auto;
+}
+
+.lumina-cta {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  backdrop-filter: blur(10px);
+  transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+.lumina-cta:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.slide-number,
+.slide-total {
+  position: absolute;
+  z-index: 10;
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  font-size: var(--font-size-mono, clamp(10px, 1.2vw, 12px));
+  letter-spacing: 0.14em;
+  color: var(--color-text-light, rgba(255, 255, 255, 0.5));
+  bottom: 1.75rem;
+}
+
+.slide-number {
+  left: 1.5rem;
+}
+
+.slide-total {
+  left: 3.4rem;
+}
+
+.slide-total::before {
+  content: "/";
+  margin-right: 0.35rem;
+  opacity: 0.5;
+}
+
+.slide-content {
+  position: absolute;
+  z-index: 10;
+  left: 1.5rem;
+  right: 7.5rem;
+  bottom: 5.5rem;
+  max-width: min(640px, 72vw);
+  pointer-events: none;
+}
+
+.slide-title {
+  font-family: var(--font-display, "Cormorant Garamond", Georgia, serif);
+  font-weight: 400;
+  font-size: clamp(3.2rem, 9vw, 7.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  margin: 0 0 1rem;
+  color: #fff;
+}
+
+.slide-description {
+  font-size: clamp(0.95rem, 1.6vw, 1.125rem);
+  line-height: 1.55;
+  color: var(--color-text-muted, rgba(255, 255, 255, 0.72));
+  max-width: 42ch;
+  margin: 0;
+}
+
+.slide-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1.15rem;
+  pointer-events: auto;
+}
+
+.slide-links.is-empty {
+  display: none;
+}
+
+.slide-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #fff;
+  text-decoration: none;
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(10px);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.slide-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.slides-navigation {
+  position: absolute;
+  z-index: 15;
+  right: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  width: min(200px, 34vw);
+  pointer-events: auto;
+}
+
+.slide-nav-item {
+  cursor: pointer;
+  opacity: 0.45;
+  transition: opacity 0.35s ease;
+}
+
+.slide-nav-item:hover,
+.slide-nav-item.active {
+  opacity: 1;
+}
+
+.slide-nav-title {
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  font-size: clamp(10px, 1.1vw, 12px);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.lumina-footer {
+  position: absolute;
+  z-index: 20;
+  right: 1.5rem;
+  bottom: 1.75rem;
+  display: flex;
+  gap: 0.7rem;
+}
+
+.lumina-footer a {
+  font-family: var(--font-mono, "JetBrains Mono", monospace);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.38);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.lumina-footer a:hover {
+  color: #fff;
+}
+
+.lumina-phone-stage {
+  position: absolute;
+  z-index: 12;
+  right: clamp(8rem, 18vw, 14rem);
+  top: 50%;
+  margin-top: -360px;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.45s ease, visibility 0.45s ease;
+}
+
+.lumina-phone-stage.is-visible {
+  pointer-events: auto;
+  opacity: 1;
+  visibility: visible;
+  animation: luminaPhoneIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.slider-wrapper.has-phone .slide-content {
+  right: min(48vw, 520px);
+  bottom: 5.5rem;
+  max-width: min(420px, 44vw);
+}
+
+.slider-wrapper.has-phone .slide-title {
+  font-size: clamp(2.6rem, 6vw, 4.8rem);
+}
+
+@keyframes luminaPhoneIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gatedScreenFade {
+  0% { opacity: 1; }
+  30% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes gatedIconOpen {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.15); opacity: 0; }
+}
+
+@media (max-width: 768px) {
+  .lumina-topbar {
+    padding: 0.85rem 1rem;
+  }
+
+  .lumina-brand {
+    font-size: 1.25rem;
+  }
+
+  .slide-content {
+    right: 1.1rem;
+    bottom: 8.5rem;
+    max-width: none;
+  }
+
+  .slide-title {
+    font-size: clamp(2.8rem, 14vw, 4.2rem);
+  }
+
+  .slides-navigation {
+    right: auto;
+    left: 1rem;
+    top: auto;
+    bottom: 3.5rem;
+    transform: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: calc(100% - 2rem);
+    gap: 0.75rem 1rem;
+  }
+
+  .slide-nav-item {
+    flex: 1 1 auto;
+    min-width: 72px;
+  }
+
+  .slide-number,
+  .slide-total {
+    bottom: 1.25rem;
+  }
+
+  .lumina-footer {
+    left: auto;
+    right: 1rem;
+    bottom: 1.25rem;
+  }
+
+  /* App slide: phone-first composition */
+  .slider-wrapper.has-phone .slide-content {
+    display: none;
+  }
+
+  .slider-wrapper.has-phone .lumina-phone-stage,
+  .lumina-phone-stage {
+    left: 0;
+    right: 0;
+    top: 4.1rem;
+    bottom: 5rem;
+    margin: 0;
+    transform: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .slider-wrapper.has-phone .lumina-phone-stage.is-visible,
+  .lumina-phone-stage.is-visible {
+    animation: luminaPhoneInMobile 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes luminaPhoneInMobile {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .slider-wrapper.has-phone .slides-navigation {
+    left: 0;
+    right: 0;
+    bottom: 2.55rem;
+    width: 100%;
+    padding: 0 0.75rem;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 0.95rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .slider-wrapper.has-phone .slides-navigation::-webkit-scrollbar {
+    display: none;
+  }
+
+  .slider-wrapper.has-phone .slide-nav-item {
+    flex: 0 0 auto;
+    min-width: 0;
+  }
+
+  .slider-wrapper.has-phone .slide-nav-title {
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    white-space: nowrap;
+  }
+
+  .slider-wrapper.has-phone .slide-number,
+  .slider-wrapper.has-phone .slide-total {
+    bottom: 0.95rem;
+  }
+
+  .slider-wrapper.has-phone .lumina-footer {
+    bottom: 0.95rem;
+  }
+}

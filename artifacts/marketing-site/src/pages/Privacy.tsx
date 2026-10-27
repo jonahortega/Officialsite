@@ -1,52 +1,44 @@
 import { Link } from "wouter";
+import {
+  LegalLayout,
+  LegalSection as Section,
+  LegalSubSection as SubSection,
+  LEGAL as C,
+} from "@/components/LegalLayout";
 
 const SUPPORT = "support@gated.us";
 const EFFECTIVE = "June 22, 2026";
 const LAST_UPDATED = "June 22, 2026";
 
-const C = {
-  bg: "linear-gradient(180deg, #0c0428 0%, #150840 40%, #0c0428 100%)",
-  text: "rgba(220,210,255,0.9)",
-  muted: "rgba(167,139,250,0.7)",
-  accent: "#a855f7",
-  white: "white",
-  subtle: "rgba(220,210,255,0.85)",
-};
-
 export default function Privacy() {
   return (
-    <div style={{ minHeight: "100vh", background: C.bg, color: C.text, fontFamily: "'Space Grotesk', system-ui, sans-serif" }}>
-      <div style={{ maxWidth: 760, margin: "0 auto", padding: "60px 24px 80px" }}>
-
-        <Link href="/" style={{ display: "inline-flex", alignItems: "center", gap: 6, color: C.accent, fontSize: 14, textDecoration: "none", marginBottom: 40 }}>
-          ← Back to home
-        </Link>
-
-        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
-          <div style={{ width: 36, height: 36, borderRadius: 10, background: "linear-gradient(135deg,#7c3aed,#a855f7)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18 }}>🔒</div>
-          <span style={{ fontSize: 12, color: C.muted, fontWeight: 500, letterSpacing: "0.12em", textTransform: "uppercase" }}>The Greak Life Corp</span>
-        </div>
-
-        <h1 style={{ fontFamily: "'Instrument Serif', Georgia, serif", fontSize: "clamp(32px,5.5vw,48px)", fontWeight: 400, color: C.white, marginBottom: 8, lineHeight: 1.05, letterSpacing: "-0.02em" }}>Privacy Policy</h1>
-        <div style={{ fontSize: 14, color: C.muted, marginBottom: 8 }}>
-          <span><strong style={{ color: C.white }}>Effective Date:</strong> {EFFECTIVE}</span>
-          <span style={{ margin: "0 12px", opacity: 0.4 }}>|</span>
-          <span><strong style={{ color: C.white }}>Last Updated:</strong> {LAST_UPDATED}</span>
-        </div>
-        <div style={{ fontSize: 14, color: C.muted, marginBottom: 8 }}>
-          <strong style={{ color: C.white }}>Legal Entity / Data Controller:</strong> The Greak Life Corp., a Delaware corporation
-        </div>
-        <div style={{ fontSize: 14, color: C.muted, marginBottom: 8 }}>
-          <strong style={{ color: C.white }}>Platform / Brand Name:</strong> Gated
-        </div>
-        <div style={{ fontSize: 14, color: C.muted, marginBottom: 48 }}>
-          <strong style={{ color: C.white }}>Privacy Contact / Consumer Requests:</strong> <a href={`mailto:${SUPPORT}`} style={{ color: C.accent }}>{SUPPORT}</a>
-        </div>
+    <LegalLayout
+      title="Privacy Policy"
+      meta={
+        <>
+          <div style={{ fontSize: 14, color: C.muted, marginBottom: 8 }}>
+            <span><strong style={{ color: C.white }}>Effective Date:</strong> {EFFECTIVE}</span>
+            <span style={{ margin: "0 12px", opacity: 0.4 }}>·</span>
+            <span><strong style={{ color: C.white }}>Last Updated:</strong> {LAST_UPDATED}</span>
+          </div>
+          <div style={{ fontSize: 14, color: C.muted, marginBottom: 8 }}>
+            <strong style={{ color: C.white }}>Legal Entity / Data Controller:</strong> The Greak Life Corp., a Delaware corporation
+          </div>
+          <div style={{ fontSize: 14, color: C.muted, marginBottom: 8 }}>
+            <strong style={{ color: C.white }}>Platform / Brand Name:</strong> Gated
+          </div>
+          <div style={{ fontSize: 14, color: C.muted }}>
+            <strong style={{ color: C.white }}>Privacy Contact / Consumer Requests:</strong>{" "}
+            <a href={`mailto:${SUPPORT}`} style={{ color: C.white }}>{SUPPORT}</a>
+          </div>
+        </>
+      }
+    >
 
         {/* TOC */}
-        <div style={{ background: "rgba(124,58,237,0.08)", border: "1px solid rgba(124,58,237,0.2)", borderRadius: 14, padding: "20px 24px", marginBottom: 48 }}>
-          <p style={{ fontSize: 13, fontWeight: 700, color: C.muted, marginBottom: 12, letterSpacing: "0.06em" }}>TABLE OF CONTENTS</p>
-          <ol style={{ margin: 0, padding: "0 0 0 1.2rem", lineHeight: 2, fontSize: 13, color: C.accent }}>
+        <div style={{ background: C.soft, border: `1px solid ${C.line}`, borderRadius: 14, padding: "20px 24px", marginBottom: 48 }}>
+          <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, fontWeight: 500, color: C.muted, marginBottom: 12, letterSpacing: "0.14em", textTransform: "uppercase" }}>Table of contents</p>
+          <ol style={{ margin: 0, padding: "0 0 0 1.2rem", lineHeight: 2, fontSize: 13, color: C.white }}>
             {[
               "Introduction and Scope","Relationship to Terms of Service","Who This Policy Applies To",
               "Information We Collect","How We Collect Information","How We Use Information",
@@ -75,7 +67,7 @@ export default function Privacy() {
         </Section>
 
         <Section n="2" title="Relationship to Terms of Service">
-          <p style={{ marginBottom: 12 }}>This Policy should be read together with our <Link href="/terms" style={{ color: C.accent }}>Terms of Service</Link>. Defined terms in the Terms of Service apply here unless this Policy defines them differently.</p>
+          <p style={{ marginBottom: 12 }}>This Policy should be read together with our <Link href="/terms" style={{ color: C.white }}>Terms of Service</Link>. Defined terms in the Terms of Service apply here unless this Policy defines them differently.</p>
           <p>If there is a conflict between this Policy and the Terms regarding privacy or data processing, this Policy controls for privacy matters. If there is a conflict regarding use of the Platform, events, payments, or liability, the Terms control.</p>
         </Section>
 
@@ -183,7 +175,7 @@ export default function Privacy() {
           </SubSection>
 
           <SubSection title="4.10 Communications with Us">
-            <p>If you contact us at <a href={`mailto:${SUPPORT}`} style={{ color: C.accent }}>{SUPPORT}</a> (or other support channels we provide), we collect the information you include in your message, such as your email address, name, event details, refund requests, and attachments.</p>
+            <p>If you contact us at <a href={`mailto:${SUPPORT}`} style={{ color: C.white }}>{SUPPORT}</a> (or other support channels we provide), we collect the information you include in your message, such as your email address, name, event details, refund requests, and attachments.</p>
           </SubSection>
 
           <SubSection title="4.11 Information We Do Not Intentionally Collect">
@@ -314,7 +306,7 @@ export default function Privacy() {
         <Section n="9" title="Payment Information">
           <p style={{ marginBottom: 12 }}>Payments and payouts are handled by Stripe (and potentially other processors we add). When you make or receive payments through the Platform, Stripe's privacy policy and terms apply to Stripe's processing of payment information.</p>
           <p style={{ marginBottom: 12 }}>We may receive limited transaction metadata from Stripe to confirm purchases, issue tickets, support refunds for cancelled events, and operate organizer payout features.</p>
-          <p>For more information, see Stripe's privacy notice at: <a href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer" style={{ color: C.accent }}>stripe.com/privacy</a></p>
+          <p>For more information, see Stripe's privacy notice at: <a href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer" style={{ color: C.white }}>stripe.com/privacy</a></p>
         </Section>
 
         <Section n="10" title="Push Notifications and Device Tokens">
@@ -347,7 +339,7 @@ export default function Privacy() {
             <li>Resolve disputes and enforce our agreements</li>
             <li>Maintain security and backup integrity</li>
           </ul>
-          <div style={{ borderRadius: 12, overflow: "hidden", border: "1px solid rgba(124,58,237,0.2)", marginBottom: 12 }}>
+          <div style={{ borderRadius: 12, overflow: "hidden", border: "1px solid rgba(255,255,255,0.12)", marginBottom: 12 }}>
             {[
               ["Account/profile data", "While account is active, then deleted or anonymized subject to legal exceptions"],
               ["Event and ticket records", "As needed for event operations, refunds, disputes, and legal compliance"],
@@ -356,7 +348,7 @@ export default function Privacy() {
               ["Logs/security data", "For a limited operational period unless needed for incident investigation"],
               ["Device push tokens", "Until you log out, uninstall, request deletion, or token is refreshed/replaced"],
             ].map(([type, approach], i) => (
-              <div key={i} style={{ display: "flex", borderBottom: i < 5 ? "1px solid rgba(124,58,237,0.12)" : "none", background: i % 2 === 0 ? "rgba(124,58,237,0.06)" : "rgba(0,0,0,0.12)" }}>
+              <div key={i} style={{ display: "flex", borderBottom: i < 5 ? "1px solid rgba(255,255,255,0.06)" : "none", background: i % 2 === 0 ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.12)" }}>
                 <div style={{ padding: "10px 14px", width: "38%", flexShrink: 0, color: C.muted, fontSize: 12, fontWeight: 600 }}>{type}</div>
                 <div style={{ padding: "10px 14px", fontSize: 12, color: C.subtle, lineHeight: 1.5 }}>{approach}</div>
               </div>
@@ -373,12 +365,12 @@ export default function Privacy() {
             <li>HTTPS/TLS for data in transit</li>
             <li>Use of reputable infrastructure and payment processors</li>
           </ul>
-          <p>No method of transmission or storage is 100% secure. You are responsible for safeguarding your password and device. If you believe your account has been compromised, contact <a href={`mailto:${SUPPORT}`} style={{ color: C.accent }}>{SUPPORT}</a> promptly.</p>
+          <p>No method of transmission or storage is 100% secure. You are responsible for safeguarding your password and device. If you believe your account has been compromised, contact <a href={`mailto:${SUPPORT}`} style={{ color: C.white }}>{SUPPORT}</a> promptly.</p>
         </Section>
 
         <Section n="15" title="Children's Privacy">
           <p style={{ marginBottom: 12 }}>The Platform is not directed to children under 13, and we do not knowingly collect personal information from children under 13.</p>
-          <p style={{ marginBottom: 12 }}>If you believe we have collected personal information from a child under 13, contact us at <a href={`mailto:${SUPPORT}`} style={{ color: C.accent }}>{SUPPORT}</a> and we will take appropriate steps to delete it, consistent with applicable law.</p>
+          <p style={{ marginBottom: 12 }}>If you believe we have collected personal information from a child under 13, contact us at <a href={`mailto:${SUPPORT}`} style={{ color: C.white }}>{SUPPORT}</a> and we will take appropriate steps to delete it, consistent with applicable law.</p>
           <p>Users must meet the age requirements in our Terms of Service (generally at least 18 or the age of majority, unless otherwise stated for a specific account type).</p>
         </Section>
 
@@ -394,7 +386,7 @@ export default function Privacy() {
             <li><strong style={{ color: C.white }}>Notifications:</strong> Adjust device-level push notification permissions</li>
             <li><strong style={{ color: C.white }}>Camera:</strong> Allow or deny camera access for QR scanning</li>
             <li><strong style={{ color: C.white }}>Marketing:</strong> We do not currently sell personal information or use it for cross-context behavioral advertising</li>
-            <li><strong style={{ color: C.white }}>Account deletion:</strong> Request account deletion by emailing <a href={`mailto:${SUPPORT}`} style={{ color: C.accent }}>{SUPPORT}</a></li>
+            <li><strong style={{ color: C.white }}>Account deletion:</strong> Request account deletion by emailing <a href={`mailto:${SUPPORT}`} style={{ color: C.white }}>{SUPPORT}</a></li>
             <li><strong style={{ color: C.white }}>Access/correction/deletion:</strong> See Section 18 and Section 19</li>
           </ul>
           <p>We may need to verify your identity before fulfilling certain requests.</p>
@@ -413,7 +405,7 @@ export default function Privacy() {
           </ul>
 
           <SubSection title="How to Submit a Request">
-            <p style={{ marginBottom: 8 }}>Email <a href={`mailto:${SUPPORT}`} style={{ color: C.accent }}>{SUPPORT}</a> with the subject line "Privacy Request" and include:</p>
+            <p style={{ marginBottom: 8 }}>Email <a href={`mailto:${SUPPORT}`} style={{ color: C.white }}>{SUPPORT}</a> with the subject line "Privacy Request" and include:</p>
             <ul style={{ margin: "0 0 12px 1.2rem", padding: 0, listStyleType: "disc", lineHeight: 1.8 }}>
               <li>Your full name</li>
               <li>The email address associated with your Gated account</li>
@@ -441,8 +433,8 @@ export default function Privacy() {
           </SubSection>
 
           <SubSection title="19.2 Categories of Personal Information Collected (Summary)">
-            <div style={{ borderRadius: 12, overflow: "hidden", border: "1px solid rgba(124,58,237,0.2)" }}>
-              <div style={{ display: "flex", background: "rgba(124,58,237,0.15)", borderBottom: "1px solid rgba(124,58,237,0.2)", padding: "8px 14px" }}>
+            <div style={{ borderRadius: 12, overflow: "hidden", border: "1px solid rgba(255,255,255,0.12)" }}>
+              <div style={{ display: "flex", background: "rgba(255,255,255,0.08)", borderBottom: "1px solid rgba(255,255,255,0.12)", padding: "8px 14px" }}>
                 <div style={{ width: "35%", fontSize: 11, fontWeight: 700, color: C.muted, letterSpacing: "0.06em" }}>CPRA CATEGORY</div>
                 <div style={{ width: "45%", fontSize: 11, fontWeight: 700, color: C.muted, letterSpacing: "0.06em" }}>EXAMPLES ON GATED</div>
                 <div style={{ fontSize: 11, fontWeight: 700, color: C.muted, letterSpacing: "0.06em" }}>COLLECTED</div>
@@ -461,10 +453,10 @@ export default function Privacy() {
                 ["K. Inferences", "Not used for targeted advertising profiling", "No"],
                 ["L. Sensitive personal information (CPRA)", "See 19.3", "Limited***"],
               ].map(([cat, ex, col], i) => (
-                <div key={i} style={{ display: "flex", borderBottom: i < 11 ? "1px solid rgba(124,58,237,0.1)" : "none", background: i % 2 === 0 ? "rgba(124,58,237,0.05)" : "rgba(0,0,0,0.1)" }}>
+                <div key={i} style={{ display: "flex", borderBottom: i < 11 ? "1px solid rgba(255,255,255,0.08)" : "none", background: i % 2 === 0 ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.1)" }}>
                   <div style={{ padding: "8px 14px", width: "35%", fontSize: 12, color: C.muted, fontWeight: 500 }}>{cat}</div>
                   <div style={{ padding: "8px 14px", width: "45%", fontSize: 12, color: C.subtle }}>{ex}</div>
-                  <div style={{ padding: "8px 14px", fontSize: 12, color: col === "Yes" ? "#4ade80" : col === "No" || col === "No*" || col === "No" ? "rgba(167,139,250,0.5)" : C.muted, fontWeight: 600 }}>{col}</div>
+                  <div style={{ padding: "8px 14px", fontSize: 12, color: col === "Yes" ? "#4ade80" : col === "No" || col === "No*" || col === "No" ? "rgba(255,255,255,0.45)" : C.muted, fontWeight: 600 }}>{col}</div>
                 </div>
               ))}
             </div>
@@ -479,7 +471,7 @@ export default function Privacy() {
               <li>Security and fraud prevention</li>
               <li>Short-term transient use, debugging, and service improvement, where applicable</li>
             </ul>
-            <p>If you are a California resident and wish to limit our use of sensitive personal information beyond what is permitted by law, email <a href={`mailto:${SUPPORT}`} style={{ color: C.accent }}>{SUPPORT}</a> with subject "Limit Sensitive PI."</p>
+            <p>If you are a California resident and wish to limit our use of sensitive personal information beyond what is permitted by law, email <a href={`mailto:${SUPPORT}`} style={{ color: C.white }}>{SUPPORT}</a> with subject "Limit Sensitive PI."</p>
           </SubSection>
 
           <SubSection title="19.4 Disclosures for Business Purposes">
@@ -502,7 +494,7 @@ export default function Privacy() {
               <li>Limit use/disclosure of sensitive personal information, where applicable;</li>
               <li>Not receive discriminatory treatment for exercising privacy rights.</li>
             </ul>
-            <p>Submit requests to <a href={`mailto:${SUPPORT}`} style={{ color: C.accent }}>{SUPPORT}</a> as described in Section 18.</p>
+            <p>Submit requests to <a href={`mailto:${SUPPORT}`} style={{ color: C.white }}>{SUPPORT}</a> as described in Section 18.</p>
           </SubSection>
 
           <SubSection title="19.7 Authorized Agents (California)">
@@ -533,11 +525,11 @@ export default function Privacy() {
               <li>We do not process personal information for targeted advertising as defined by those laws as of the Effective Date.</li>
               <li>We do not engage in profiling in furtherance of legal or similarly significant decisions.</li>
             </ul>
-            <p>To exercise rights, contact <a href={`mailto:${SUPPORT}`} style={{ color: C.accent }}>{SUPPORT}</a>.</p>
+            <p>To exercise rights, contact <a href={`mailto:${SUPPORT}`} style={{ color: C.white }}>{SUPPORT}</a>.</p>
           </SubSection>
 
           <SubSection title="20.2 Nevada">
-            <p>Nevada residents may submit a request directing us not to sell certain covered information. We do not sell covered information as defined under Nevada law. You may still contact us at <a href={`mailto:${SUPPORT}`} style={{ color: C.accent }}>{SUPPORT}</a> with subject "Nevada Do Not Sell Request."</p>
+            <p>Nevada residents may submit a request directing us not to sell certain covered information. We do not sell covered information as defined under Nevada law. You may still contact us at <a href={`mailto:${SUPPORT}`} style={{ color: C.white }}>{SUPPORT}</a> with subject "Nevada Do Not Sell Request."</p>
           </SubSection>
 
           <SubSection title="20.3 New Jersey and Other States">
@@ -553,16 +545,16 @@ export default function Privacy() {
 
         <Section n="22" title="Contact Us">
           <p style={{ marginBottom: 16 }}>For privacy questions, requests, or complaints:</p>
-          <div style={{ borderRadius: 12, overflow: "hidden", border: "1px solid rgba(124,58,237,0.2)" }}>
+          <div style={{ borderRadius: 12, overflow: "hidden", border: "1px solid rgba(255,255,255,0.12)" }}>
             {[
               ["Legal Entity", "The Greak Life Corp."],
               ["Email", SUPPORT],
               ["Recommended subject line", "Privacy Request"],
             ].map(([label, value], i) => (
-              <div key={i} style={{ display: "flex", borderBottom: i < 2 ? "1px solid rgba(124,58,237,0.12)" : "none", background: i % 2 === 0 ? "rgba(124,58,237,0.06)" : "rgba(0,0,0,0.12)" }}>
+              <div key={i} style={{ display: "flex", borderBottom: i < 2 ? "1px solid rgba(255,255,255,0.06)" : "none", background: i % 2 === 0 ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.12)" }}>
                 <div style={{ padding: "12px 16px", width: "38%", flexShrink: 0, color: C.muted, fontSize: 13, fontWeight: 600 }}>{label}</div>
                 <div style={{ padding: "12px 16px", fontSize: 13, color: C.subtle }}>
-                  {label === "Email" ? <a href={`mailto:${value}`} style={{ color: C.accent }}>{value}</a> : value}
+                  {label === "Email" ? <a href={`mailto:${value}`} style={{ color: C.white }}>{value}</a> : value}
                 </div>
               </div>
             ))}
@@ -573,8 +565,8 @@ export default function Privacy() {
         <div style={{ marginBottom: 36 }}>
           <h2 style={{ color: C.white, fontSize: 17, fontWeight: 700, marginBottom: 4 }}>Appendix A — Categories of Personal Information (California Format)</h2>
           <p style={{ fontSize: 14, color: C.muted, marginBottom: 16 }}>A.1 Categories Collected in the Last 12 Months</p>
-          <div style={{ borderRadius: 12, overflow: "hidden", border: "1px solid rgba(124,58,237,0.2)", marginBottom: 16 }}>
-            <div style={{ display: "flex", background: "rgba(124,58,237,0.15)", borderBottom: "1px solid rgba(124,58,237,0.2)", padding: "8px 14px" }}>
+          <div style={{ borderRadius: 12, overflow: "hidden", border: "1px solid rgba(255,255,255,0.12)", marginBottom: 16 }}>
+            <div style={{ display: "flex", background: "rgba(255,255,255,0.08)", borderBottom: "1px solid rgba(255,255,255,0.12)", padding: "8px 14px" }}>
               {["Category", "Examples", "Business Purposes", "Disclosed to Service Providers?", "Sold/Shared?"].map((h, i) => (
                 <div key={i} style={{ flex: i === 1 || i === 2 ? 2 : 1, fontSize: 10, fontWeight: 700, color: C.muted, letterSpacing: "0.05em" }}>{h}</div>
               ))}
@@ -593,7 +585,7 @@ export default function Privacy() {
               ["Inferences", "—", "—", "—", "No / No"],
               ["Sensitive personal information", "Account credentials (via auth provider)", "Login/security only", "Yes", "No / No"],
             ].map((row, i) => (
-              <div key={i} style={{ display: "flex", borderBottom: i < 11 ? "1px solid rgba(124,58,237,0.1)" : "none", background: i % 2 === 0 ? "rgba(124,58,237,0.04)" : "rgba(0,0,0,0.1)" }}>
+              <div key={i} style={{ display: "flex", borderBottom: i < 11 ? "1px solid rgba(255,255,255,0.08)" : "none", background: i % 2 === 0 ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.1)" }}>
                 {row.map((cell, j) => (
                   <div key={j} style={{ flex: j === 1 || j === 2 ? 2 : 1, padding: "8px 14px", fontSize: 11, color: C.subtle, lineHeight: 1.5 }}>{cell}</div>
                 ))}
@@ -607,8 +599,8 @@ export default function Privacy() {
         <div style={{ marginBottom: 36 }}>
           <h2 style={{ color: C.white, fontSize: 17, fontWeight: 700, marginBottom: 4 }}>Appendix B — Service Providers and Processors</h2>
           <p style={{ fontSize: 14, color: C.muted, marginBottom: 16 }}>Current architecture. Vendor names may change as the product evolves.</p>
-          <div style={{ borderRadius: 12, overflow: "hidden", border: "1px solid rgba(124,58,237,0.2)" }}>
-            <div style={{ display: "flex", background: "rgba(124,58,237,0.15)", borderBottom: "1px solid rgba(124,58,237,0.2)", padding: "8px 14px" }}>
+          <div style={{ borderRadius: 12, overflow: "hidden", border: "1px solid rgba(255,255,255,0.12)" }}>
+            <div style={{ display: "flex", background: "rgba(255,255,255,0.08)", borderBottom: "1px solid rgba(255,255,255,0.12)", padding: "8px 14px" }}>
               {["Provider / Service", "Role", "Typical Data Processed"].map((h, i) => (
                 <div key={i} style={{ flex: i === 2 ? 2 : 1, fontSize: 10, fontWeight: 700, color: C.muted, letterSpacing: "0.05em" }}>{h}</div>
               ))}
@@ -621,7 +613,7 @@ export default function Privacy() {
               ["Apple Push Notification service (APNs)", "Mobile push delivery", "Device tokens and notification payloads"],
               ["Apple App Store / TestFlight", "App distribution", "Governed by Apple's policies"],
             ].map((row, i) => (
-              <div key={i} style={{ display: "flex", borderBottom: i < 5 ? "1px solid rgba(124,58,237,0.1)" : "none", background: i % 2 === 0 ? "rgba(124,58,237,0.04)" : "rgba(0,0,0,0.1)" }}>
+              <div key={i} style={{ display: "flex", borderBottom: i < 5 ? "1px solid rgba(255,255,255,0.08)" : "none", background: i % 2 === 0 ? "rgba(255,255,255,0.04)" : "rgba(0,0,0,0.1)" }}>
                 {row.map((cell, j) => (
                   <div key={j} style={{ flex: j === 2 ? 2 : 1, padding: "8px 14px", fontSize: 11, color: C.subtle, lineHeight: 1.5 }}>{cell}</div>
                 ))}
@@ -630,33 +622,12 @@ export default function Privacy() {
           </div>
         </div>
 
-        <div style={{ marginTop: 56, padding: "24px", borderRadius: 16, background: "rgba(124,58,237,0.12)", border: "1px solid rgba(124,58,237,0.25)", display: "flex", flexDirection: "column", gap: 8 }}>
+        <div style={{ marginTop: 56, padding: "24px", borderRadius: 16, background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", display: "flex", flexDirection: "column", gap: 8 }}>
           <p style={{ fontSize: 14, color: C.muted, margin: 0 }}>Also see our</p>
           <Link href="/terms" style={{ color: C.white, fontWeight: 600, fontSize: 15, textDecoration: "none" }}>Terms of Service →</Link>
         </div>
 
-        <p style={{ marginTop: 40, fontSize: 12, color: "rgba(167,139,250,0.5)" }}>Last updated: {LAST_UPDATED}</p>
-      </div>
-    </div>
-  );
-}
-
-function Section({ n, title, children }: { n: string; title: string; children: React.ReactNode }) {
-  return (
-    <div style={{ marginBottom: 36 }}>
-      <h2 style={{ color: C.white, fontSize: 17, fontWeight: 700, marginBottom: 12 }}>
-        {n}. {title}
-      </h2>
-      <div style={{ lineHeight: 1.75, color: C.subtle, fontSize: 15 }}>{children}</div>
-    </div>
-  );
-}
-
-function SubSection({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div style={{ marginBottom: 16 }}>
-      <h3 style={{ color: "rgba(220,210,255,0.95)", fontSize: 14, fontWeight: 600, marginBottom: 8 }}>{title}</h3>
-      <div style={{ lineHeight: 1.75, color: C.subtle, fontSize: 15 }}>{children}</div>
-    </div>
+        <p style={{ marginTop: 40, fontSize: 12, color: C.muted }}>Last updated: {LAST_UPDATED}</p>
+    </LegalLayout>
   );
 }

@@ -72,7 +72,7 @@
   --radius: 0.75rem;
 
   --app-font-sans: 'Space Grotesk', system-ui, sans-serif;
-  --app-font-serif: 'Instrument Serif', Georgia, serif;
+  --app-font-serif: 'Cormorant Garamond', 'Instrument Serif', Georgia, serif;
   --app-font-mono: 'JetBrains Mono', Menlo, monospace;
 
   /* Gated marketing tokens (Clean Contrast layout + existing purple scheme) */
@@ -86,6 +86,19 @@
   --gated-tertiary: rgba(255, 255, 255, 0.28);
   --gated-hair: rgba(255, 255, 255, 0.1);
   --gated-card: rgba(255, 255, 255, 0.045);
+
+  /* Lumina slider tokens */
+  --font-mono: "JetBrains Mono", monospace;
+  --font-sans: "Space Grotesk", system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --color-bg: #0a0a0a;
+  --color-text: #ffffff;
+  --color-text-muted: rgba(255, 255, 255, 0.7);
+  --color-text-light: rgba(255, 255, 255, 0.5);
+  --color-accent: #d4af37;
+  --font-size-mono: clamp(10px, 1.2vw, 12px);
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1rem;
 }
 
 .dark {
