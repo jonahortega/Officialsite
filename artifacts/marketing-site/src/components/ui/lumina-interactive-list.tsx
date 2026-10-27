@@ -39,10 +39,16 @@ export function LuminaInteractiveList({ slides }: Props) {
     let onWheel: ((e: WheelEvent) => void) | null = null;
     let onKeyDown: ((e: KeyboardEvent) => void) | null = null;
     let onTouchStart: ((e: TouchEvent) => void) | null = null;
+    let onTouchMove: ((e: TouchEvent) => void) | null = null;
     let onTouchEnd: ((e: TouchEvent) => void) | null = null;
     let touchStartY = 0;
     let touchStartX = 0;
+    let touchLastY = 0;
+    let touchLastX = 0;
+    let touchStartTime = 0;
+    let touchLastTime = 0;
     let touchNavEnabled = false;
+    let touchSwiped = false;
 
     const loadScripts = async () => {
       const loadScript = (src: string, globalName: string) =>
@@ -327,7 +333,13 @@ export function LuminaInteractiveList({ slides }: Props) {
             `Go to ${slide.navLabel ?? slide.title}`,
           );
           const label = slide.navLabel ?? slide.title;
-          item.innerHTML = `<span class="slide-nav-title">${label}</span>`;
+          const short =
+            label === "Organizations"
+              ? "Orgs"
+              : label === "Discover"
+                ? "Discover"
+                : label;
+          item.innerHTML = `<span class="slide-nav-title slide-nav-title--full">${label}</span><span class="slide-nav-title slide-nav-title--short">${short}</span>`;
           item.addEventListener("click", (e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -706,26 +718,111 @@ export function LuminaInteractiveList({ slides }: Props) {
         const target = e.target as Element | null;
         touchNavEnabled = !(
           target?.closest?.(".lumina-phone-stage") ||
+          target?.closest?.(".slides-navigation") ||
           target?.closest?.(".lumina-topbar") ||
-          target?.closest?.(".lumina-footer")
+          target?.closest?.(".lumina-footer") ||
+          target?.closest?.("a") ||
+          target?.closest?.("button")
         );
+        touchSwiped = false;
         const t = e.changedTouches[0];
         if (!t) return;
-        touchStartY = t.clientY;
-        touchStartX = t.clientX;
+        touchStartY = touchLastY = t.clientY;
+        touchStartX = touchLastX = t.clientX;
+        touchStartTime = touchLastTime = performance.now();
       };
-      onTouchEnd = (e: TouchEvent) => {
-        if (!touchNavEnabled || scrollGestureActive || isTransitioning) return;
-        const t = e.changedTouches[0];
+
+      onTouchMove = (e: TouchEvent) => {
+        if (!touchNavEnabled) return;
+        const t = e.touches[0];
         if (!t) return;
-        const dy = t.clientY - touchStartY;
-        const dx = t.clientX - touchStartX;
-        if (Math.abs(dy) < 48 || Math.abs(dy) < Math.abs(dx) * 1.15) return;
+        touchLastY = t.clientY;
+        touchLastX = t.clientX;
+        touchLastTime = performance.now();
+
+        const dy = touchLastY - touchStartY;
+        const dx = touchLastX - touchStartX;
+        if (Math.abs(dy) > 10 || Math.abs(dx) > 10) {
+          e.preventDefault();
+        }
+
+        // Fire as soon as the swipe clearly crosses threshold (feels snappier on iOS)
+        if (touchSwiped) return;
+        const absX = Math.abs(dx);
+        const absY = Math.abs(dy);
+        const horizontal = absX > absY;
+        const dist = horizontal ? absX : absY;
+        if (dist < 36) return;
+
+        touchSwiped = true;
+        const dir: 1 | -1 = horizontal
+          ? dx < 0
+            ? 1
+            : -1
+          : dy < 0
+            ? 1
+            : -1;
+
+        if (isTransitioning || scrollGestureActive) {
+          pendingSlideIndex = currentSlideIndex + dir;
+          return;
+        }
         scrollGestureActive = true;
-        stepSlide(dy < 0 ? 1 : -1);
+        stopAutoSlideTimer();
+        stepSlide(dir);
+        if (!isTransitioning) scrollGestureActive = false;
       };
-      window.addEventListener("touchstart", onTouchStart, { passive: true });
-      window.addEventListener("touchend", onTouchEnd, { passive: true });
+
+      onTouchEnd = (e: TouchEvent) => {
+        if (!touchNavEnabled || touchSwiped) return;
+        const t = e.changedTouches[0];
+        if (t) {
+          touchLastY = t.clientY;
+          touchLastX = t.clientX;
+          touchLastTime = performance.now();
+        }
+        const dy = touchLastY - touchStartY;
+        const dx = touchLastX - touchStartX;
+        const dt = Math.max(16, touchLastTime - touchStartTime);
+        const absX = Math.abs(dx);
+        const absY = Math.abs(dy);
+        const horizontal = absX > absY * 0.85;
+        const dist = horizontal ? absX : absY;
+        const speed = dist / dt;
+        const distOk = dist >= 28;
+        const flickOk = speed > 0.32 && dist >= 16;
+        if (!distOk && !flickOk) return;
+
+        const dir: 1 | -1 = horizontal
+          ? dx < 0
+            ? 1
+            : -1
+          : dy < 0
+            ? 1
+            : -1;
+
+        if (isTransitioning || scrollGestureActive) {
+          pendingSlideIndex = currentSlideIndex + dir;
+          return;
+        }
+        scrollGestureActive = true;
+        stopAutoSlideTimer();
+        stepSlide(dir);
+        if (!isTransitioning) scrollGestureActive = false;
+      };
+
+      const touchTarget =
+        containerRef.current ?? document.querySelector(".slider-wrapper");
+      const touchRoot = touchTarget ?? window;
+      touchRoot.addEventListener("touchstart", onTouchStart as EventListener, {
+        passive: true,
+      });
+      touchRoot.addEventListener("touchmove", onTouchMove as EventListener, {
+        passive: false,
+      });
+      touchRoot.addEventListener("touchend", onTouchEnd as EventListener, {
+        passive: true,
+      });
     };
 
     loadScripts();
@@ -744,9 +841,14 @@ export function LuminaInteractiveList({ slides }: Props) {
         window.removeEventListener("lumina-phone-interact", onPhoneInteract);
       if (onWheel) window.removeEventListener("wheel", onWheel);
       if (onKeyDown) window.removeEventListener("keydown", onKeyDown);
+      const touchRoot =
+        containerRef.current ?? document.querySelector(".slider-wrapper") ?? window;
       if (onTouchStart)
-        window.removeEventListener("touchstart", onTouchStart);
-      if (onTouchEnd) window.removeEventListener("touchend", onTouchEnd);
+        touchRoot.removeEventListener("touchstart", onTouchStart as EventListener);
+      if (onTouchMove)
+        touchRoot.removeEventListener("touchmove", onTouchMove as EventListener);
+      if (onTouchEnd)
+        touchRoot.removeEventListener("touchend", onTouchEnd as EventListener);
       try {
         renderer?.dispose?.();
       } catch {
